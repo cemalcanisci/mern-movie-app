@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../assets/main.scss';
 import Header from './Header';
+import RouteComponent from './RouteComponent';
+import {connect} from 'react-redux';
+import {getMovies} from '../redux/actions/getMovies';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-export default class App extends Component {
+  BrowserRouter as Router
+} from "react-router-dom";class App extends Component {
+  componentDidMount(){
+    this.props.getMovies();
+  }
   render() {
+
     const links = [
       {path:'/',name:'Filmler'},
       {path:'/order',name:'Sıralama'},
@@ -18,24 +21,17 @@ export default class App extends Component {
       <div className="container">
       <Router>
       <Header props={links} />
-
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/about">
-            About
-          </Route>
-          <Route path="/users">
-           Users
-          </Route>
-          <Route path="/">
-            Anasayfa
-          </Route>
-        </Switch>
-
+      <RouteComponent />
         </Router>
       </div>
     )
   }
 }
 
+const mapStateToProps = function(state){
+return state
+}
+const mapDispatchToProps = {
+  getMovies
+}
+export default connect(mapStateToProps,mapDispatchToProps)(App)
