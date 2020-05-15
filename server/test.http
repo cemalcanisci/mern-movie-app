@@ -6,8 +6,8 @@ POST http://localhost:5000/api/movie/add HTTP/1.1
 content-type: application/json
 
 {
-    "title":"Harry Potter ve Felsefe Taşı",
-    "author":"J.K. Rowling",
+    "title":"Yüzüklerin Efendisi Yüzük Kardeşliği",
+    "author":"Peter Jackson",
     "watched":true,
     "addedBy":"Cemal Can İŞÇİ",
     "order":1,
