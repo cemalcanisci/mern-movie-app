@@ -3,16 +3,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../assets/main.scss';
 import Header from './Header';
 import RouteComponent from './RouteComponent';
-import {connect} from 'react-redux';
-import {getMovies} from '../redux/actions/getMovies';
 import {
   BrowserRouter as Router
-} from "react-router-dom";class App extends Component {
-  componentDidMount(){
-    this.props.getMovies();
-  }
-  render() {
+} from "react-router-dom";
+export default class App extends Component {
+  isDataInitialized = false;
 
+  render() {
     const links = [
       {path:'/',name:'Filmler'},
       {path:'/order',name:'Sıralama'},
@@ -23,15 +20,9 @@ import {
       <Header props={links} />
       <RouteComponent />
         </Router>
+
       </div>
     )
   }
 }
 
-const mapStateToProps = function(state){
-return state
-}
-const mapDispatchToProps = {
-  getMovies
-}
-export default connect(mapStateToProps,mapDispatchToProps)(App)
