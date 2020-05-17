@@ -1,3 +1,39 @@
-.header{
-    background-color: #83878a;
+.header {
+    background-color: #3e444a;
+}
+
+.tableImages {
+    width: 120px;
+}
+.react-paginate ul {
+    display: inline-block;
+    padding-left: 15px;
+    padding-right: 15px;
+    li {
+        display: inline-block;
+        border: 1px solid #333;
+        padding: 4px;
+        
+       
+    }
+    .active {
+        background-color: #6c757d;
+        color : #fff
+    }
+    .disabled{
+        background-color:#83878a85;
+        a{
+            cursor: default;
+
+        }
+    }
+    .previous{
+        margin-right: 1rem;
+        border-radius: 4px;
+    }
+    .next{
+        margin-left: 1rem;
+        border-radius: 4px;
+
+    }
 }

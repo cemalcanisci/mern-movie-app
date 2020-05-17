@@ -6,10 +6,10 @@ POST http://localhost:5000/api/movie/add HTTP/1.1
 content-type: application/json
 
 {
-    "title":"Yüzüklerin Efendisi ve Yüzük Kardeşliği",
+    "title":"Yüzüklerin Efendisi ve Kralın Dönüşü",
     "author":"Peter Jackson",
     "watched":true,
     "addedBy":"Cemal Can İŞÇİ",
-    "order":0,
+    "order":2,
     "category":"Fantastik"
 }
