@@ -13,3 +13,12 @@ content-type: application/json
     "order":2,
     "category":"Fantastik"
 }
+
+###
+
+PUT http://localhost:5000/api/movie/change-status/5ebf0147fb4d8523844cf071 HTTP/1.1
+content-type: application/json
+
+{
+    "watched":true
+}

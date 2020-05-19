@@ -6,7 +6,7 @@ const app = express();
 app.use(bodyParser.json());
 const PORT = 5000;
 
-mongoose.connect('mongodb://localhost:27017/mymovieapp', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost:27017/mymovieapp', { useNewUrlParser: true, useUnifiedTopology: true ,useFindAndModify:false})
     .then(res => console.log('Mongoose connect successfully'))
     .catch(err => console.log(err));
 let Schema = mongoose.Schema;
@@ -81,6 +81,13 @@ app.get('/api/movie/:id',(req,res)=>{
      Movie.findById(req.params.id)
      .then(movie=>res.json(movie))
 
+})
+app.put('/api/movie/change-status/:id',(req,res)=>{
+    const watched = {
+        watched: !req.body.watched
+    }
+    Movie.findOneAndUpdate({_id:req.params.id},watched)
+    .then(movie=>res.json(movie))
 })
 app.post('/api/movie/add', (req, res) => {
     const newMovie = new Movie({

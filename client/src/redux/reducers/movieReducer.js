@@ -17,23 +17,16 @@ export default function getMovies(state = initialState,action){
                 isDataNull:true
         }     
         }
-        case 'GET_MOVIE':
-        return {...action.payload }
-        case 'GET_ERRORS': 
-        return{
-            ...state,
-            errors : action.payload.message
-        }
-        default: return state;
-    }
-}
-export function getMovie(state = {},action){
-    switch(action.type){
-        case 'GET_MOVIE':
-        return {
-            ...state,
-            movie : action.payload.data
-        }
+        case 'UPDATE_STATUS':
+            const updatedIndex = state.movies.findIndex(movie=>movie._id === action.payload);
+        state.movies.map((movie,index)=>{
+            if(index === updatedIndex){
+                movie.watched = !movie.watched;
+            }
+        })
+             return {
+                 ...state,
+            }
         case 'GET_ERRORS': 
         return{
             ...state,

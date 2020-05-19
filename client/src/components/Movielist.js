@@ -22,6 +22,9 @@ import MoviePaginate from './MoviePaginate';
               ...this.state.query,
               page:data.selected+1
           }
+          this.setState({
+              query:query
+          })
           this.props.getMovies(query)
       }
     render() {
@@ -29,7 +32,7 @@ import MoviePaginate from './MoviePaginate';
        (this.props.initialState.isDataNull ? <NullData /> : 
         (this.props.initialState.movies.length ?  
             <div>
-        <MovieTable movies={this.props.initialState.movies}/>
+        <MovieTable query={this.state.query} movies={this.props.initialState.movies}/>
         <div className="react-paginate">
             <MoviePaginate values = {this.props.initialState} 
             stateValues = {this.state.query} handleFunction={this.handlePageClick} />
