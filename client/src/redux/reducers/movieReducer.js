@@ -19,13 +19,11 @@ export default function getMovies(state = initialState,action){
         }
         case 'UPDATE_STATUS':
             const updatedIndex = state.movies.findIndex(movie=>movie._id === action.payload);
-        state.movies.map((movie,index)=>{
-            if(index === updatedIndex){
-                movie.watched = !movie.watched;
-            }
-        })
+        let changedMovie = state.movies[updatedIndex];
+            changedMovie.watched =  !changedMovie.watched;
              return {
-                 ...state,
+                 changedMovie,
+                 ...state
             }
         case 'GET_ERRORS': 
         return{

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Movielist from './Movielist';
 import Moviedetail from './Moviedetail';
-
+import AddEdit from './AddEdit'
 import {
   Switch,
   Route
@@ -18,6 +18,12 @@ export default class RouteComponent extends Component {
         <Switch>
         <Route path="/detay/:movieId">
         <Moviedetail  />
+          </Route>
+          <Route path="/duzenle/:movieId">
+          <AddEdit />
+          </Route>
+          <Route path="/ekle">
+          <AddEdit />
           </Route>
           <Route path="/about">
             About
