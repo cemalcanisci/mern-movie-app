@@ -1,7 +1,10 @@
 .header {
     background-color: #3e444a;
 }
-
+.only-rounded-left{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
 .tableImages {
     width: 120px;
 }
