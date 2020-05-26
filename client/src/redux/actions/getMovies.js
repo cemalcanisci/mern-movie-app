@@ -11,5 +11,6 @@ export const getMovies = (query)=> async dispatch =>{
 }
 export const getMovie = (id) => async dispatch =>{
     let movie = await axios.get(`/api/movie/${id}`);
+
     dispatch({type:'GET_MOVIE',payload:movie.data})
 }

@@ -1,18 +1,6 @@
 import axios from 'axios';
 
-
-export const updateMovie = (id, watched) => dispatch => {
-    try {
-        axios.put('/api/movie/change-status/' + id, { watched: watched })
-            .then(res => {
-                dispatch({ type: 'UPDATE_STATUS', payload: res.data._id })
-            })
-    } catch (err) {
-        dispatch({ type: 'GET_ERRORS', payload: err })
-    }
-
-}
-export const update = (data, image,history) => async dispatch => {
+export const add = (data, image,history) => async dispatch => {
     try {
         let newData;
         if (image) {
@@ -26,10 +14,11 @@ export const update = (data, image,history) => async dispatch => {
             }
         } else {
             newData = { ...data }
+
         }
-        axios.put('/api/movie/update/' + newData._id, { newData })
+        axios.post('/api/movie/add', newData)
             .then(res => {
-                dispatch({ type: 'GET_MOVIE', payload: res.data })
+                // dispatch({ type: 'GET_MOVIES', payload: res.data })
 
                 history.push('/')
             })

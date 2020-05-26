@@ -4,24 +4,46 @@ import { withRouter } from 'react-router-dom';
 import { getMovie } from '../redux/actions/getMovies'
 import { InputGroup, FormControl, Form } from 'react-bootstrap';
 import Croppie from './Croppie';
+import {update} from '../redux/actions/updateMovie';
+import Editor from './Editor';
 class Edit extends Component {
     state = {
-        fields: {}
+        fields: {},
+        update:false,
+        image : undefined,
+        file:undefined,
+        history:undefined
     }
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (!prevState.fields.description && nextProps.movie.description) {
-            return { fields: { ...nextProps.movie } }
+        let newFields = Object.assign({},nextProps.movie);
+        if (nextProps.movie.description && !prevState.update) {
+            return { fields: newFields,update:true,history:nextProps.history }
         }
         return null;
     }
+
     componentDidMount() {
         if (this.props.match.params.movieId) {
             this.props.getMovie(this.props.match.params.movieId);
         }
     }
+    setNewImage = (image)=>{
+        this.setState({image})
+    }
+    setFile = (file) =>{
+        this.setState({file});
+    }
     submitForm = (e) => {
         e.preventDefault();
-        console.log(this.state);
+        this.props.update(this.state.fields,this.state.file,this.state.history)
+
+    }
+    setDescrpition = (description)=>{
+        this.setState(prevState=>{
+            let fields = Object.assign({},prevState.fields);
+            fields.description = description;
+            return {fields};
+        })
     }
     changeThis = (e) => {
         let name = e.target.name;
@@ -35,21 +57,26 @@ class Edit extends Component {
             return { fields };
         })
     }
+        
+    
     render() {
-        return (
+    const Image = this.state.image ? <img alt={this.state.fields.title} className="detailImage"  src={this.state.image} /> : 
+    <img alt={this.state.fields.title} className="detailImage"  src={this.state.fields.image} 
+    />
+    return (
             <div>
                 <form onSubmit={this.submitForm.bind(this)}>
                     <InputGroup className="mt-3">
                         <InputGroup.Prepend>
                             <InputGroup.Text id="title">Filmin Adı</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <FormControl className="mr-3" name="title" onChange={this.changeThis.bind(this)} defaultValue={this.state.fields.title || ''}
+                        <FormControl required className="mr-3" name="title" onChange={this.changeThis.bind(this)} defaultValue={this.state.fields.title || ''}
                             aria-describedby="title"
                         />
                         <InputGroup.Prepend>
                             <InputGroup.Text id="added">Ekleyen</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <FormControl name="description" onChange={this.changeThis.bind(this)} defaultValue={this.state.fields.addedBy || ''}
+                        <FormControl required name="addedBy" onChange={this.changeThis.bind(this)} defaultValue={this.state.fields.addedBy || ''}
                             aria-describedby="added"
                         />
                     </InputGroup>
@@ -66,7 +93,7 @@ class Edit extends Component {
                         <InputGroup.Prepend>
                             <InputGroup.Text id="author">Yazar</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <FormControl name="author" onChange={this.changeThis.bind(this)} defaultValue={this.state.fields.author || ''}
+                        <FormControl required name="author" onChange={this.changeThis.bind(this)} defaultValue={this.state.fields.author || ''}
                             aria-describedby="author"
                         />
                     </InputGroup>
@@ -82,9 +109,13 @@ class Edit extends Component {
                         </Form.Group>
 
                     </InputGroup>
-                    <img alt={this.state.fields.title} className="detailImage"  src={this.state.fields.image} />
-                    <Croppie />
-                    <button className="mt-3" type="submit">Submit</button>
+                    <Editor setDescrpition={this.setDescrpition} data={this.props.movie.description} />
+                    <div className="d-flex align-items-center justify-content-between">
+                    {Image}
+                    <Croppie setFile={this.setFile}  setNewImage={this.setNewImage}/>
+                    <button className="btn btn-success" type="submit">Kaydet</button>
+
+                    </div>
                 </form>
             </div>
         )
@@ -92,6 +123,7 @@ class Edit extends Component {
 }
 const mapStateToProps = state => state;
 const mapDispatchToProps = {
-    getMovie
+    getMovie,
+    update
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Edit))

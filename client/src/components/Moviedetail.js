@@ -15,26 +15,24 @@ class Moviedetail extends Component {
             <div>
                 <Card>
                     <div className="border d-flex flex-row mb-2 justify-content-around align-items-center">
-                    <Card.Img className="detailImage"  src={this.props.movie.image} />
+                        <Card.Img className="detailImage" src={this.props.movie.image} />
                         <Card.Title> <strong className="text-danger"> <h3> {this.props.movie.title}</h3> </strong> </Card.Title>
-                        </div>
-                        <Card.Text>
-                            <div className="d-flex flex-column  border-bottom mb-2">
-                                <div className="d-flex flex-row align-items-center justify-content-start">
+                    </div>
+                    <div>
+                        <div className="d-flex flex-column  border-bottom mb-2">
+                            <div className="d-flex flex-row align-items-center justify-content-start">
                                 <h4 className="border-bottom">Ekleyen : </h4> <h5>{this.props.movie.addedBy}</h5>
-                                </div>
-                                <div className="d-flex flex-row align-items-center justify-content-start">
+                            </div>
+                            <div className="d-flex flex-row align-items-center justify-content-start">
                                 <h4 className="border-bottom">Kategori : </h4> <h5>{this.props.movie.category}</h5>
-                                </div>
                             </div>
-                            <div class="blockquote-footer"><cite title="Source Title">{this.props.movie.author}</cite></div>
+                        </div>
+                        <div className="blockquote-footer"><cite title="Source Title">{this.props.movie.author}</cite></div>
 
-                            <div>
-                               <p> {this.props.movie.description}</p>
-                            </div>
+                        <div dangerouslySetInnerHTML={{ __html: this.props.movie.description }} ></div>
 
 
-    </Card.Text>
+                    </div>
                 </Card>
             </div>
         )

@@ -1,5 +1,6 @@
 const initialState = {
-    movie: {}
+    movie: {},
+    newImageUrl:null
 }
 export default function getMovie(state = initialState,action){
     switch(action.type){

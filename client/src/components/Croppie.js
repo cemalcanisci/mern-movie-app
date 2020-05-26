@@ -9,14 +9,15 @@ export default class Croppie extends Component {
         src: null,
         crop: {
             unit: "%",
-            width: 30,
-            aspect: 16 / 16
-        }
+            width: 100,
+            aspect: 30 / 30
+        },
+        croppedImage : undefined,
+        fileName : null
     };
-
-
     onSelectFile = e => {
         if (e.target.files && e.target.files.length > 0) {
+            this.setState({fileName:e.target.files[0].name})
             const reader = new FileReader();
             reader.addEventListener("load", () =>
                 this.setState({ src: reader.result,show:true })
@@ -28,10 +29,29 @@ export default class Croppie extends Component {
     // If you setState the crop in here you should return false.
     onImageLoaded = image => {
         this.imageRef = image;
+        const width = image.width > image.height ? (image.height / image.width) * 100 : 100;
+        const height = image.height > image.width ? (image.width / image.height) * 100 : 100;
+        const x = width === 100 ? 0 : (100 - width) / 2;
+        const y = height === 100 ? 0 : (100 - height) / 2;
+       
+        this.setState({
+          crop: {
+            unit: '%',
+            aspect: 1,
+            width,
+            height,
+            x,
+            y,
+          },
+        });
+       
+        return false; // Return false if you set crop state in here.
     };
 
     onCropComplete = crop => {
         this.makeClientCrop(crop);
+
+        
     };
 
     onCropChange = (crop, percentCrop) => {
@@ -58,8 +78,12 @@ export default class Croppie extends Component {
         const scaleY = image.naturalHeight / image.height;
         canvas.width = crop.width;
         canvas.height = crop.height;
+
         const ctx = canvas.getContext("2d");
 
+        ctx.fillStyle = 'white';
+
+        ctx.fillRect(0, 0, crop.width, crop.height);
         ctx.drawImage(
             image,
             crop.x * scaleX,
@@ -73,28 +97,66 @@ export default class Croppie extends Component {
         );
 
         return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+
             canvas.toBlob(blob => {
                 if (!blob) {
                     //reject(new Error('Canvas is empty'));
                     console.error("Canvas is empty");
                     return;
                 }
+
                 blob.name = fileName;
                 window.URL.revokeObjectURL(this.fileUrl);
                 this.fileUrl = window.URL.createObjectURL(blob);
+                let newFileName = '';
+                const date = new Date();
+                const name = date.getTime().toString();
+                  let mimeType = this.state.fileName.split('.')[1];
+                  newFileName += this.state.fileName.split('.')[0] + name+'.'+mimeType;
+                reader.readAsDataURL(blob)
+                reader.onloadend = ()=>{
+                    this.dataUrlToFile(reader.result,newFileName)
+                }
+                this.refs.file.value = null;
+
                 resolve(this.fileUrl);
             }, "image/jpeg");
         });
+
     }
+    dataUrlToFile = (dataurl, filename) => {
 
+        let arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), 
+            n = bstr.length, 
+            u8arr = new Uint8Array(n);
+                
+        while(n--){
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+
+        let croppedImage = new File([u8arr], filename, {type:mime});
+        this.setState({croppedImage: croppedImage }) 
+    }
+    hideModal = ()=>{
+        this.refs.file.value = null;
+        this.setState({show:false})
+    }
+    addImage = ()=>{
+        this.props.setFile(this.state.croppedImage);
+        this.props.setNewImage(this.state.croppedImageUrl);
+        this.setState({show:false})
+    }
     render() {
-
         const { crop, croppedImageUrl, src } = this.state;
-
         return (
             <div >
                 <div>
-                    <input type="file" accept="image/*" onChange={this.onSelectFile} />
+                    <input name="imageUpload" className="d-none" id="imageUpload" ref="file" type="file" accept="image/*" onChange={this.onSelectFile} />
+                    <label htmlFor="imageUpload" className="btn btn-warning m-0">Resim Seç</label>
+
                 </div>
                 <Modal
                 show={this.state.show}
@@ -118,11 +180,15 @@ export default class Croppie extends Component {
                             onChange={this.onCropChange}
                         />
                     )}
-                    <button>Ekle</button>
-                    <button onClick={() =>this.setState({show:false})}>Vazgeç</button>
+                    <div className="d-flex flex-column justify-content-center align-items-center">
+                    <div className="d-flex flex-row justify-content-around w-100">
+                    <button className="btn btn-success" onClick={this.addImage}>Ekle</button>
+                    <button className="btn btn-danger" onClick={this.hideModal}>Vazgeç</button>
+                    </div>
                     {croppedImageUrl && (
                         <img alt="Crop" style={{ maxWidth: "100%" }} src={croppedImageUrl} />
                     )}
+                    </div>
                 </Modal.Body>
               </Modal>
 

@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const etag = require('etag');
 const app = express();
+const fileUpload = require('express-fileupload');
 app.use(bodyParser.json());
+app.use(fileUpload());
 const PORT = 5000;
 
 mongoose.connect('mongodb://localhost:27017/mymovieapp', { useNewUrlParser: true, useUnifiedTopology: true ,useFindAndModify:false})
@@ -89,21 +91,33 @@ app.put('/api/movie/change-status/:id',(req,res)=>{
     Movie.findOneAndUpdate({_id:req.params.id},watched)
     .then(movie=>res.json(movie))
 })
+app.put('/api/movie/update/:id',(req,res)=>{
+    let data = req.body.newData;
+    Movie.findOneAndUpdate({_id:req.params.id},data)
+    .then(movie=>res.json(movie))
+})
 app.post('/api/movie/add', (req, res) => {
-    const newMovie = new Movie({
-        title: req.body.title,
-        description: req.body.description,
-        author: req.body.author,
-        watched: req.body.watched,
-        addedBy: req.body.addedBy,
-        order: req.body.order,
-        category: req.body.category,
-    })
+    const data = {...req.body,order:5}
+    const newMovie = new Movie(data)
     newMovie.save()
         .then(movie => res.json({data:movie}))
 })
-
-
+app.post('/api/upload-image',(req,res)=>{
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).send('No files were uploaded.');
+    }
+    let image = req.files.file;
+  
+    image.mv(__dirname+`/../client/public/${image.name}`,function(err){
+        if(err){
+            res.status(500).send(err);
+        }
+        res.json({
+            success:true,
+            image:'/'+image.name
+        });
+    })
+    })
 app.listen(PORT, () => {
     console.log(`App listening on ${PORT} : PORT`);
 })

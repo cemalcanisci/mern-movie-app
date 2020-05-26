@@ -10,6 +10,7 @@ class Movietable extends Component {
     this.props.updateMovie(id, status)
   }
   render() {
+
     return (
       <div>
         <Table striped bordered hover variant="dark">
@@ -29,8 +30,8 @@ class Movietable extends Component {
               return <tr key={q._id}>
                 <td>{index + 1}</td>
                 <td><img className="tableImages" src={q.image} alt={q.title} /></td>
-                <td>{q.title}</td>
-                <td>{q.addedBy}</td>
+                <td>{q.title.length > 35 ? q.title.substring(0,35)+'...' : q.title}</td>
+                <td>{q.addedBy.length > 20 ? q.addedBy.substring(0,20)+'...' : q.addedBy}</td>
                 <td>{q.category}</td>
                 <td>{q.watched ? 'Evet' : 'Hayır'}</td>
                 <td>
