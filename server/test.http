@@ -22,3 +22,16 @@ content-type: application/json
 {
     "watched":true
 }
+
+###
+
+GET http://localhost:5000/api/category HTTP/1.1
+
+
+###
+POST http://localhost:5000/api/category HTTP/1.1
+Content-Type: application/json
+
+{
+    "title":"Fantastik"
+}
