@@ -6,8 +6,8 @@ export default class Header extends Component {
         return (
             <div className="header rounded w-100 d-flex  flex-row justify-content-around align items-center">
                 <Link className="btn rounded btn-lg btn-dark text-white" to="/">Film Listesi</Link>
-                <Link className="btn rounded btn-lg btn-dark text-white" to="/ekle">Yeni Ekle</Link>
-                <Link className="btn rounded btn-lg btn-dark text-white" to="/users">Users</Link>
+                <Link className="btn rounded btn-lg btn-dark text-white" to="/ekle">Yeni Film</Link>
+                <Link className="btn rounded btn-lg btn-dark text-white" to="/kategori">Kategoriler</Link>
             </div>
         )
     }

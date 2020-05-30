@@ -3,6 +3,7 @@ import Movielist from './Movielist';
 import Moviedetail from './Moviedetail';
 import Edit from './Edit';
 import Add from './Add';
+import Category from './Category';
 import {
   Switch,
   Route
@@ -19,6 +20,9 @@ export default class RouteComponent extends Component {
         <Switch>
         <Route path="/detay/:movieId">
         <Moviedetail  />
+          </Route>
+          <Route path="/kategori">
+            <Category />
           </Route>
           <Route path="/duzenle/:movieId">
           <Edit />

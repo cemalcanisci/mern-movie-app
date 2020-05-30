@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const CategoryModel = '../models/category';
+const CategoryModel = require('../models/category')
 router.get('/',(req,res)=>{
     let categories = CategoryModel.find();
     categories.then(category=>res.json(category));

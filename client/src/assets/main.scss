@@ -1,5 +1,18 @@
 .header {
     background-color: #3e444a;
+
+}
+.wrap{
+    flex-wrap: wrap;
+}
+.bg-first{
+    background-color: #454d55;
+    height: 4rem;
+}
+.bg-second{
+    background-color: #343a40;
+    height: 4rem;
+
 }
 .only-rounded-left{
     border-top-right-radius: 0;
