@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-
+import {set} from '../redux/actions/category'
  class CategoryList extends Component {
     state={
         fields:[],
@@ -18,13 +18,11 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
     
     activateUpdate = ()=>{
         this.setState({
-            isUpdate:!this.state.isUpdate,
-            fields:[...this.props.initialCategories.categories]
+            isUpdate:!this.state.isUpdate
         })
     }
     changeFields = (i) => (e)=>{
         let newFields = [...this.state.fields];
-        console.log(newFields)
         newFields[i].title = e.target.value;
         newFields[i].status = 'updated';
 
@@ -76,7 +74,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
         })
      }
     save = ()=>{
-        console.log(this.state);
+        this.props.set(this.state)
     }
     render() {
          return (
@@ -114,5 +112,5 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
     }
 }
 const mapStateToProps = state=>state;
-
-export default connect(mapStateToProps)(CategoryList)
+const mapDispatchToProps = {set}
+export default connect(mapStateToProps,mapDispatchToProps)(CategoryList)

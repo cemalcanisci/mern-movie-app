@@ -8,3 +8,16 @@ export const get = () => async dispatch =>{
         console.log(error)
     }
 }
+export const set = (values) => async dispatch =>{
+    try {
+        let data =  {
+            updated:[...values.fields.filter(q=>{return q.status})],
+            removed:[...values.removedFields],
+            added:[...values.newFields]
+        }
+
+        await axios.post('/api/category/set',data);
+    } catch (error) {
+        console.log(error)
+    }
+}

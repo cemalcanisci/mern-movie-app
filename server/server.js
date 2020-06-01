@@ -10,7 +10,6 @@ const categoryRouter = require('./routers/category');
 const MovieModel = require('./models/movie');
 app.use(bodyParser.json());
 
-
 app.use('/api/movies',moviesRouter);
 app.use('/api/movie',movieRouter);
 app.use('/api',apiRouter);
