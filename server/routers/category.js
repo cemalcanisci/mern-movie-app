@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const CategoryModel = require('../models/category')
+const CategoryModel = require('../models/category');
+const {add,update,remove} = require('../middlewares/category');
+const setMiddlewares = [update,add,remove];
 router.get('/',(req,res)=>{
     let categories = CategoryModel.find();
     categories.then(category=>res.json(category));
@@ -11,22 +13,18 @@ router.post('/',(req,res)=>{
     newCategory.save()
     .then(category=>res.json({data:category}))
 })
-router.post('/set',async (req,res)=>{
+router.post('/set',setMiddlewares,async (req,res)=>{
     try {
-    let removed = req.body.removed;
-    let updated = req.body.updated;
-    let added = req.body.added;
-    let data = {};
-    if(!added.length && !updated.length && !removed.length){
-        throw new Error("Didn't find any changes")
-    }
-    else{
-        // data.added  = await CategoryModel.insertMany(added)
-
-        // res.json({data})
-    }
-    } catch (error) {
-        console.log(error)
+        let add = req.addedData.length ? true : false;
+        let update = req.updatedData;
+        let remove = req.removedData;
+        res.json({
+            add,
+            update,
+            remove
+        })
+    }catch (error) {
+        throw new Error(error)
     }
     
 })
