@@ -1,4 +1,6 @@
-const categories = [];
+const categories = {
+    categories:[]
+};
 
 export default function category(state=categories,action){
     switch(action.type){

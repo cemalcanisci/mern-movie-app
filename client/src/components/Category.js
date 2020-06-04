@@ -11,7 +11,7 @@ import NullData from './NullData';
     
     render() {
 
-        const categories = this.props.initialCategories.isNullData ? <NullData /> : (this.props.initialCategories.categories && this.props.initialCategories.categories.length ? <CategoryList /> : <Loading />)
+        const categories = (this.props.initialCategories.categories && this.props.initialCategories.categories.length ? <CategoryList /> : <Loading />)
         return (
             <div>
                 {categories}

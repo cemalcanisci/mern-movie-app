@@ -29,7 +29,7 @@ import MoviePaginate from './MoviePaginate';
       }
     render() {
       const isDataInitialized = this.props.initialState.errors === "" || 'undefined' ?
-       (this.props.initialState.isDataNull ? <NullData /> : 
+       (this.props.initialState.isDataNull ? <NullData message="Henüz hiç film eklenmemiştir.." /> : 
         (this.props.initialState.movies.length ?  
             <div>
         <MovieTable query={this.state.query} movies={this.props.initialState.movies}/>

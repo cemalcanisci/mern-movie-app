@@ -16,7 +16,8 @@ export const set = (values) => async dispatch =>{
             added:[...values.newFields]
         }
 
-        await axios.post('/api/category/set',data);
+        let datas = await axios.post('/api/category/set',data);
+
     } catch (error) {
         console.log(error)
     }

@@ -5,6 +5,8 @@ import Croppie from './Croppie';
 import Editor from './Editor';
 import {add} from '../redux/actions/addMovie'
 import { withRouter } from 'react-router-dom';
+import {get} from '../redux/actions/category';
+import NullData from './NullData';
 
 class Add extends Component {
     state = {
@@ -17,7 +19,10 @@ class Add extends Component {
         file:undefined,
         history:undefined
     }
-
+    componentDidMount() {
+        this.props.get();
+    }
+    
     setNewImage = (image)=>{
         this.setState({image})
     }
@@ -27,9 +32,6 @@ class Add extends Component {
     submitForm = (e) => {
         e.preventDefault();
         this.props.add(this.state.fields,this.state.file,this.props.history)
-
-        
-        
     }
     setDescrpition = (description)=>{
         this.setState(prevState=>{
@@ -53,11 +55,14 @@ class Add extends Component {
         
     
     render() {
+        console.log(this.props)
     const Image = this.state.image ? <img alt={this.state.fields.title} className="detailImage"  src={this.state.image} /> : 
         ''
     return (
             <div>
-                <form onSubmit={this.submitForm.bind(this)}>
+                {
+                    this.props.initialCategories && this.props.initialCategories.categories && this.props.initialCategories.categories.length ?
+                    <form onSubmit={this.submitForm.bind(this)}>
                     <InputGroup className="mt-3">
                         <InputGroup.Prepend>
                             <InputGroup.Text id="title">Filmin Adı</InputGroup.Text>
@@ -76,9 +81,12 @@ class Add extends Component {
                         <Form.Group className="mb-0 w-50 mr-3 d-flex flex-row align-items-center justify-content-center">
                             <InputGroup.Text className="only-rounded-left">Kategori</InputGroup.Text>
                             <Form.Control className="rounded-0" name="category" onChange={this.changeThis.bind(this)} value={this.state.fields.category} as="select">
-                                <option value="Anime">Anime</option>
-                                <option value="Fantastik">Fantastik</option>
+                               {this.props.initialCategories && this.props.initialCategories.categories && this.props.initialCategories.categories.length ? this.props.initialCategories.categories.map(q=>{
+                                return <option key={q._id} value={q._id}>{q.title}</option> 
+                               }) : '' 
+                            } 
 
+                               
                             </Form.Control>
 
                         </Form.Group>
@@ -108,7 +116,9 @@ class Add extends Component {
                     <button className="btn btn-success" type="submit">Kaydet</button>
 
                     </div>
-                </form>
+                </form> : <NullData message="Film eklemek için önce kategori eklemelisiniz."/>
+                }
+
             </div>
         )
     }
@@ -117,6 +127,7 @@ const mapStateToProps = (state)=>{
     return state
 };
 const mapDispatchToProps = {
-    add
+    add,
+    get
 }
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Add))

@@ -11,9 +11,12 @@ import {set} from '../redux/actions/category'
         removedFields:[]
     }
     componentDidMount() {
-        this.setState({
-            fields:[...this.props.initialCategories.categories]
-        })
+        if(this.props.initialCategories.categories.length){
+            this.setState({
+                fields:[...this.props.initialCategories.categories]
+            }) 
+        }
+        
     }
     
     activateUpdate = ()=>{
@@ -75,6 +78,15 @@ import {set} from '../redux/actions/category'
      }
     save = ()=>{
         this.props.set(this.state)
+        this.setState({
+            fields:[
+                ...this.state.fields,
+                ...this.state.newFields
+            ],
+            isUpdate:false,
+            newFields:[],
+            removedFields:[]
+        })
     }
     render() {
          return (
@@ -89,7 +101,7 @@ import {set} from '../redux/actions/category'
                 {        this.state.fields.map((category,i) => {
                 return <div className={(i%2===0 ?'bg-first ' : 'bg-second ' ) + 
                         'col-md-4 w-100 d-flex justify-content-around align-items-center' }
-                        key={category._id}>{this.state.isUpdate ? <input name={category.title} onChange={this.changeFields(i)} defaultValue={category.title} /> : <span className=" text-white">{category.title}</span>
+                        key={category._id ? category._id : i}>{this.state.isUpdate ? <input name={category.title} onChange={this.changeFields(i)} defaultValue={category.title} /> : <span className=" text-white">{category.title}</span>
                 }
                         <button onClick={this.removeField(i)} className="btn btn-danger btn-sm ml-2"><FontAwesomeIcon icon={faTimes} /></button>
                         
