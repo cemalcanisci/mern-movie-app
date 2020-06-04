@@ -10,13 +10,12 @@ export const get = () => async dispatch =>{
 }
 export const set = (values) => async dispatch =>{
     try {
-        let data =  {
-            updated:[...values.fields.filter(q=>{return q.status})],
-            removed:[...values.removedFields],
-            added:[...values.newFields]
-        }
+        // let data =  {
+        //     updated:[...values.fields.filter(q=>{return q.status})],
+        //     removed:[...values.removedFields],
+        //     added:[...values.newFields]
+        // }
 
-        let datas = await axios.post('/api/category/set',data);
 
     } catch (error) {
         console.log(error)

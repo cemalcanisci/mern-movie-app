@@ -2,21 +2,35 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import {set} from '../redux/actions/category'
+import {set,get} from '../redux/actions/category'
+import Loading from './Loading'
  class CategoryList extends Component {
     state={
         fields:[],
         isUpdate:false,
         newFields:[],
-        removedFields:[]
+        removedFields:[],
+        loading:true,
+        nullData:true
+    }
+    static getDerivedStateFromProps(nextProps,prevState){
+        if(nextProps.initialCategories.categories && nextProps.initialCategories.categories.length && prevState.fields.length !==nextProps.initialCategories.categories.length){
+            return{
+                
+                fields:[...nextProps.initialCategories.categories],
+                loading:false,
+                nullData:false
+            }
+        }
+        if(!nextProps.initialCategories.categories || nextProps.initialCategories.categories.length){
+            return{
+                nullData:true
+            }
+        }
+        return null;
     }
     componentDidMount() {
-        if(this.props.initialCategories.categories.length){
-            this.setState({
-                fields:[...this.props.initialCategories.categories]
-            }) 
-        }
-        
+        this.props.get();       
     }
     
     activateUpdate = ()=>{
@@ -98,7 +112,7 @@ import {set} from '../redux/actions/category'
                    <button onClick={this.save} className="btn btn-sm btn-warning text-white">Kaydet</button>
                </div>
                 <div className="d-flex flex-row  wrap">
-                {        this.state.fields.map((category,i) => {
+                {    this.state.fields.map((category,i) => {
                 return <div className={(i%2===0 ?'bg-first ' : 'bg-second ' ) + 
                         'col-md-4 w-100 d-flex justify-content-around align-items-center' }
                         key={category._id ? category._id : i}>{this.state.isUpdate ? <input name={category.title} onChange={this.changeFields(i)} defaultValue={category.title} /> : <span className=" text-white">{category.title}</span>
@@ -106,7 +120,7 @@ import {set} from '../redux/actions/category'
                         <button onClick={this.removeField(i)} className="btn btn-danger btn-sm ml-2"><FontAwesomeIcon icon={faTimes} /></button>
                         
                  </div>
-        })}
+        }) }
                    {
                     this.state.newFields && this.state.newFields.length ? 
                     this.state.newFields.map((category,i)=>{
@@ -124,5 +138,5 @@ import {set} from '../redux/actions/category'
     }
 }
 const mapStateToProps = state=>state;
-const mapDispatchToProps = {set}
+const mapDispatchToProps = {set,get}
 export default connect(mapStateToProps,mapDispatchToProps)(CategoryList)

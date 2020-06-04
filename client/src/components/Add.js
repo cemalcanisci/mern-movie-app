@@ -55,7 +55,6 @@ class Add extends Component {
         
     
     render() {
-        console.log(this.props)
     const Image = this.state.image ? <img alt={this.state.fields.title} className="detailImage"  src={this.state.image} /> : 
         ''
     return (

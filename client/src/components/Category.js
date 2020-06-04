@@ -5,16 +5,16 @@ import Loading from './Loading';
 import CategoryList from './CategoryList';
 import NullData from './NullData';
  class Category extends Component {
-    componentDidMount() {
-        this.props.get();
-    }
+    // componentDidMount() {
+    //     this.props.get();
+    // }
     
     render() {
 
-        const categories = (this.props.initialCategories.categories && this.props.initialCategories.categories.length ? <CategoryList /> : <Loading />)
+        // const categories = (this.props.initialCategories.categories && this.props.initialCategories.categories.length ? <CategoryList /> : <Loading />)
         return (
             <div>
-                {categories}
+                <CategoryList />
             </div>
         )
     }
