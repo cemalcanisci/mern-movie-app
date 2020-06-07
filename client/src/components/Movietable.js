@@ -32,7 +32,7 @@ class Movietable extends Component {
                 <td><img className="tableImages" src={q.image} alt={q.title} /></td>
                 <td>{q.title.length > 35 ? q.title.substring(0,35)+'...' : q.title}</td>
                 <td>{q.addedBy.length > 20 ? q.addedBy.substring(0,20)+'...' : q.addedBy}</td>
-                <td>{q.category}</td>
+                <td>{q.category.title}</td>
                 <td>{q.watched ? 'Evet' : 'Hayır'}</td>
                 <td>
                 <Link className="btn rounded btn-sm btn-success text-white" to={'/detay/' + q._id}>Detay</Link>

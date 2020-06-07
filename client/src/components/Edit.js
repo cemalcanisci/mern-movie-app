@@ -6,6 +6,8 @@ import { InputGroup, FormControl, Form } from 'react-bootstrap';
 import Croppie from './Croppie';
 import {update} from '../redux/actions/updateMovie';
 import Editor from './Editor';
+import {get} from '../redux/actions/category';
+
 class Edit extends Component {
     state = {
         fields: {},
@@ -16,7 +18,7 @@ class Edit extends Component {
     }
     static getDerivedStateFromProps(nextProps, prevState) {
         let newFields = Object.assign({},nextProps.movie);
-        if (nextProps.movie.description && !prevState.update) {
+        if (nextProps.movie._id=== nextProps.match.params.movieId && !prevState.update) {
             return { fields: newFields,update:true,history:nextProps.history }
         }
         return null;
@@ -25,6 +27,8 @@ class Edit extends Component {
     componentDidMount() {
         if (this.props.match.params.movieId) {
             this.props.getMovie(this.props.match.params.movieId);
+            this.props.get();
+
         }
     }
     setNewImage = (image)=>{
@@ -84,8 +88,10 @@ class Edit extends Component {
                         <Form.Group className="mb-0 w-50 mr-3 d-flex flex-row align-items-center justify-content-center">
                             <InputGroup.Text className="only-rounded-left">Kategori</InputGroup.Text>
                             <Form.Control className="rounded-0" name="category" onChange={this.changeThis.bind(this)} value={this.state.fields.category} as="select">
-                                <option value="Anime">Anime</option>
-                                <option value="Fantastik">Fantastik</option>
+                            {this.props.initialCategories && this.props.initialCategories.categories && this.props.initialCategories.categories.length ? this.props.initialCategories.categories.map(q=>{
+                                return <option key={q._id} value={q._id}>{q.title}</option> 
+                               }) : '' 
+                            } 
 
                             </Form.Control>
 
@@ -124,6 +130,7 @@ class Edit extends Component {
 const mapStateToProps = state => state;
 const mapDispatchToProps = {
     getMovie,
-    update
+    update,
+    get
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Edit))

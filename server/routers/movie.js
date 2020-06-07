@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
-router.get('/api/movie/:id',(req,res)=>{
+const MovieModel = require('../models/movie')
+router.get('/:id',(req,res)=>{
     MovieModel.findById(req.params.id)
+    .populate('category')
      .then(movie=>res.json(movie))
 
 })
@@ -18,7 +20,7 @@ router.put('/update/:id',(req,res)=>{
     .then(movie=>res.json(movie))
 })
 router.post('/add', (req, res) => {
-    const data = {...req.body,order:5}
+    const data = {...req.body}
     const newMovie = new MovieModel(data)
     newMovie.save()
         .then(movie => res.json({data:movie}))

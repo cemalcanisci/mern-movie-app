@@ -9,7 +9,7 @@ router.post('/upload-image', (req, res) => {
     }
     let image = req.files.file;
 
-    image.mv(__dirname + `/../client/public/${image.name}`, function (err) {
+    image.mv(__dirname + `/../../client/public/${image.name}`, function (err) {
         if (err) {
             res.status(500).send(err);
         }

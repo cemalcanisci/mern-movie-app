@@ -3,7 +3,8 @@ import Movielist from './Movielist';
 import Moviedetail from './Moviedetail';
 import Edit from './Edit';
 import Add from './Add';
-import Category from './Category';
+import CategoryList from './CategoryList';
+import Order from './Order';
 import {
   Switch,
   Route
@@ -22,7 +23,7 @@ export default class RouteComponent extends Component {
         <Moviedetail  />
           </Route>
           <Route path="/kategori">
-            <Category />
+            <CategoryList />
           </Route>
           <Route path="/duzenle/:movieId">
           <Edit />
@@ -30,8 +31,8 @@ export default class RouteComponent extends Component {
           <Route path="/ekle">
           <Add />
           </Route>
-          <Route path="/about">
-            About
+          <Route path="/siralama">
+            <Order />
             </Route>
           <Route path="/users">
             Users

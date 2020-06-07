@@ -16,6 +16,7 @@ router.get('/', (req, res) => {
         .sort({ order: 1 })
         .limit(query.limit)
         .skip(offset)
+        .populate('category')
     let date = new Date().toString();
     movies.then(async movie => {
         let body = '';

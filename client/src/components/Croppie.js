@@ -7,10 +7,15 @@ export default class Croppie extends Component {
         show:false,
         setShow:false,
         src: null,
+        // crop: {
+        //     unit: "%",
+        //     width: 100,
+        //     aspect: 30 / 30
+        // },
         crop: {
             unit: "%",
-            width: 100,
-            aspect: 30 / 30
+            width: 50,
+            height:50
         },
         croppedImage : undefined,
         fileName : null
@@ -29,23 +34,28 @@ export default class Croppie extends Component {
     // If you setState the crop in here you should return false.
     onImageLoaded = image => {
         this.imageRef = image;
-        const width = image.width > image.height ? (image.height / image.width) * 100 : 100;
-        const height = image.height > image.width ? (image.width / image.height) * 100 : 100;
-        const x = width === 100 ? 0 : (100 - width) / 2;
-        const y = height === 100 ? 0 : (100 - height) / 2;
+        // const width = image.width > image.height ? (image.height / image.width) * 100 : 100;
+        // const height = image.height > image.width ? (image.width / image.height) * 100 : 100;
+        // const x = width === 100 ? 0 : (100 - width) / 2;
+        // const y = height === 100 ? 0 : (100 - height) / 2;
        
-        this.setState({
-          crop: {
-            unit: '%',
-            aspect: 1,
-            width,
-            height,
-            x,
-            y,
-          },
-        });
+        // this.setState({
+        //   crop: {
+        //     unit: '%',
+        //     width:50,
+        //     height:50,
+        //   },
+        //   crop: {
+        //     unit: '%',
+        //     aspect: 1,
+        //     width,
+        //     height,
+        //     x,
+        //     y,
+        //   },
+        // });
        
-        return false; // Return false if you set crop state in here.
+        // return false; // Return false if you set crop state in here.
     };
 
     onCropComplete = crop => {

@@ -28,8 +28,9 @@ let movieSchema = new Schema({
         required: true
     },
     category: {
-        type: String,
-        required: true
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref:"Category"
     }, image: {
         type: String,
         default: '/default.jpg'

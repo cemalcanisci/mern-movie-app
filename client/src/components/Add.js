@@ -6,13 +6,15 @@ import Editor from './Editor';
 import {add} from '../redux/actions/addMovie'
 import { withRouter } from 'react-router-dom';
 import {get} from '../redux/actions/category';
+import {getMovies} from '../redux/actions/getMovies';
 import NullData from './NullData';
 
 class Add extends Component {
+
+ 
     state = {
         fields: {
-            watched:true,
-            category:'Anime'
+            watched:true
         },
         update:false,
         image : undefined,
@@ -21,6 +23,7 @@ class Add extends Component {
     }
     componentDidMount() {
         this.props.get();
+        this.props.getMovies();
     }
     
     setNewImage = (image)=>{
@@ -31,8 +34,14 @@ class Add extends Component {
     }
     submitForm = (e) => {
         e.preventDefault();
-        this.props.add(this.state.fields,this.state.file,this.props.history)
+        let fields = {...this.state.fields}
+        if(!fields.category){
+            fields.category = this.props.initialCategories.categories[0]._id
+        }
+        this.props.add(fields,this.state.file,this.props.history,this.props.initialState.movies)
+
     }
+
     setDescrpition = (description)=>{
         this.setState(prevState=>{
             let fields = Object.assign({},prevState.fields);
@@ -41,16 +50,16 @@ class Add extends Component {
         })
     }
     changeThis = (e) => {
+
         let name = e.target.name;
         let value = e.target.value;
         if(name === 'watched'){
             value === "true" ? value = true : value = false;
         }
-        this.setState(prevState => {
-            let fields = { ...prevState.fields }
-            fields[name] = value;
-            return { fields };
-        })
+        let fields = this.state.fields;
+        fields[name] = value;
+        this.setState({
+            fields : {...fields} })
     }
         
     
@@ -59,6 +68,7 @@ class Add extends Component {
         ''
     return (
             <div>
+
                 {
                     this.props.initialCategories && this.props.initialCategories.categories && this.props.initialCategories.categories.length ?
                     <form onSubmit={this.submitForm.bind(this)}>
@@ -79,7 +89,7 @@ class Add extends Component {
                     <InputGroup className="mt-3 w-100 d-flex flex-row align-items-center justify-content-center">
                         <Form.Group className="mb-0 w-50 mr-3 d-flex flex-row align-items-center justify-content-center">
                             <InputGroup.Text className="only-rounded-left">Kategori</InputGroup.Text>
-                            <Form.Control className="rounded-0" name="category" onChange={this.changeThis.bind(this)} value={this.state.fields.category} as="select">
+                            <Form.Control className="rounded-0" name="category" onChange={this.changeThis.bind(this)}  as="select">
                                {this.props.initialCategories && this.props.initialCategories.categories && this.props.initialCategories.categories.length ? this.props.initialCategories.categories.map(q=>{
                                 return <option key={q._id} value={q._id}>{q.title}</option> 
                                }) : '' 
@@ -127,6 +137,7 @@ const mapStateToProps = (state)=>{
 };
 const mapDispatchToProps = {
     add,
-    get
+    get,
+    getMovies
 }
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Add))

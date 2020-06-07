@@ -2,15 +2,19 @@ import React, { Component } from 'react';
 import { Card } from 'react-bootstrap';
 import { getMovie } from '../redux/actions/getMovies'
 import { connect } from 'react-redux';
+import {Html5Entities} from 'html-entities';
 import {
     withRouter
 } from "react-router-dom";
-
+const htmlEntities = new Html5Entities();
 class Moviedetail extends Component {
     componentDidMount() {
         this.props.getMovie(this.props.match.params.movieId);
     }
     render() {
+        //Bakılacak
+const description = htmlEntities.decode(this.props.movie.description);
+
         return (
             <div>
                 <Card>
@@ -24,12 +28,13 @@ class Moviedetail extends Component {
                                 <h4 className="border-bottom">Ekleyen : </h4> <h5>{this.props.movie.addedBy}</h5>
                             </div>
                             <div className="d-flex flex-row align-items-center justify-content-start">
-                                <h4 className="border-bottom">Kategori : </h4> <h5>{this.props.movie.category}</h5>
+                                <h4 className="border-bottom">Kategori : </h4> <h5>{this.props.movie.category && this.props.movie.category.title ? this.props.movie.category.title : ''}</h5>
                             </div>
                         </div>
                         <div className="blockquote-footer"><cite title="Source Title">{this.props.movie.author}</cite></div>
 
-                        <div dangerouslySetInnerHTML={{ __html: this.props.movie.description }} ></div>
+                        <div>{}</div>
+                        <div dangerouslySetInnerHTML={{ __html: description }} ></div>
 
 
                     </div>

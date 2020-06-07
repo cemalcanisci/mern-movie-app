@@ -8,6 +8,7 @@ export default class Header extends Component {
                 <Link className="btn rounded btn-lg btn-dark text-white" to="/">Film Listesi</Link>
                 <Link className="btn rounded btn-lg btn-dark text-white" to="/ekle">Yeni Film</Link>
                 <Link className="btn rounded btn-lg btn-dark text-white" to="/kategori">Kategoriler</Link>
+                <Link className="btn rounded btn-lg btn-dark text-white" to="/siralama">Sıralama</Link>
             </div>
         )
     }
