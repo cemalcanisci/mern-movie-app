@@ -25,6 +25,16 @@
     width: 300px;
     height: 300px;
 }
+.no-dot{
+    list-style-type: none;
+
+}
+.active-sort{
+    background: rgb(115,115,116);
+background: linear-gradient(90deg, rgba(115,115,116,0.4) 0%, rgba(203,194,194,0.2) 58%, rgba(115,115,116,0.4) 100%);
+border-radius: 10px; 
+list-style-type: none;
+}
 .react-paginate ul {
     display: inline-block;
     padding-left: 15px;

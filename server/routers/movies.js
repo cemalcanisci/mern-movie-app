@@ -33,5 +33,16 @@ router.get('/', (req, res) => {
 
     );
 })
-
+router.get('/order',(req,res)=>{
+    const movies = MovieModel.find()
+    .sort({order:1});
+    
+    movies.then(async movie=>{
+        const total = await MovieModel.countDocuments({});
+        res.status(200).json({data:movie,total:total})
+        });
+})
+router.put('/order',(req,res)=>{
+    console.log(req.body);
+})
 module.exports = router;

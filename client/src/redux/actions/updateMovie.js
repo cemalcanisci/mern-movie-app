@@ -12,6 +12,13 @@ export const updateMovie = (id, watched) => dispatch => {
     }
 
 }
+export const updateOrder = (data) => async dispatch =>{
+    let orderedData = [...data];
+    orderedData.forEach((q,key)=>{
+        q.order = key
+    });
+    let movies = axios.put('/api/movies/order',orderedData);
+}
 export const update = (data, image,history) => async dispatch => {
     try {
         let newData;

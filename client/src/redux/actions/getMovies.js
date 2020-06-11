@@ -9,6 +9,14 @@ export const getMovies = (query)=> async dispatch =>{
 
     }
 }
+export const getMoviesForOrder = () => async dispatch =>{
+    try {
+        let movies = await axios.get('/api/movies/order');
+        dispatch({type:'GET_MOVIES',payload:movies.data})
+    } catch (error) {
+        
+    }
+}
 export const getMovie = (id) => async dispatch =>{
     let movie = await axios.get(`/api/movie/${id}`);
     dispatch({type:'GET_MOVIE',payload:movie.data})
