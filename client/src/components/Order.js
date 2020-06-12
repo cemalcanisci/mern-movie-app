@@ -33,13 +33,13 @@ class Order extends Component {
   onSortEnd = ({ oldIndex, newIndex }) => {
     let newArr = [...this.state.movies];
     let spliced = newArr.splice(oldIndex, 1)[0];
-    //  newArr.splice(oldIndex,1);
     newArr.splice(newIndex, 0, spliced);
-    this.props.update(newArr);
+    
     this.setState({
       movies: newArr
     })
-
+    let promise = this.props.update(newArr)
+    
   };
   render() {
     const SortableItem = SortableElement(({ value, sortIndex }) => (

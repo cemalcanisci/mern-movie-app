@@ -42,7 +42,10 @@ router.get('/order',(req,res)=>{
         res.status(200).json({data:movie,total:total})
         });
 })
-router.put('/order',(req,res)=>{
-    console.log(req.body);
+router.put('/order', (req,res)=>{
+    const movies = req.body;
+    movies.forEach(async q=>{
+        await MovieModel.updateOne({_id:q._id},{$set:{order:q.order}})
+    })
 })
 module.exports = router;
