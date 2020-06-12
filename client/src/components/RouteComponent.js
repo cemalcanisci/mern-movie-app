@@ -5,6 +5,7 @@ import Edit from './Edit';
 import Add from './Add';
 import CategoryList from './CategoryList';
 import Order from './Order';
+import ChangeCategory from './ChangeCategory';
 import {
   Switch,
   Route
@@ -33,6 +34,9 @@ export default class RouteComponent extends Component {
           </Route>
           <Route path="/siralama">
             <Order />
+            </Route>
+          <Route path="/kategori-degistir">
+            <ChangeCategory />
             </Route>
           <Route path="/users">
             Users
