@@ -7,7 +7,7 @@ import { updateMovie} from '../redux/actions/updateMovie';
 import { connect } from 'react-redux';
 class Movietable extends Component {
   changeStatus(status, id) {
-    this.props.updateMovie(id, status)
+    this.props.updateMovie(id, status,this.props.query)
 
   }
   render() {

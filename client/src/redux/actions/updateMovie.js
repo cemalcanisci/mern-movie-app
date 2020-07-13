@@ -1,11 +1,13 @@
 import axios from 'axios';
 
 
-export const updateMovie = (id, watched) => dispatch => {
+export const updateMovie = (id, watched,query) => dispatch => {
     try {
         axios.put('/api/movie/change-status/' + id, { watched: watched })
-            .then(res => {
+            .then(async res => {
                 dispatch({ type: 'UPDATE_STATUS', payload: res.data._id })
+                let movies = await axios.get(`/api/movies?page=${query.page}&limit=${query.limit}`);
+                dispatch({type:'GET_MOVIES',payload:movies.data})
             })
     } catch (err) {
         dispatch({ type: 'GET_ERRORS', payload: err })
