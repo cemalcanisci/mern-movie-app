@@ -3,11 +3,12 @@ import { Table } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { updateMovie } from '../redux/actions/updateMovie';
+import { updateMovie} from '../redux/actions/updateMovie';
 import { connect } from 'react-redux';
 class Movietable extends Component {
   changeStatus(status, id) {
     this.props.updateMovie(id, status)
+
   }
   render() {
 
@@ -29,7 +30,7 @@ class Movietable extends Component {
             {this.props.movies.map((q, index) => {
               return <tr key={q._id}>
                 <td>{index + 1}</td>
-                <td><img className="tableImages" src={q.image} alt={q.title} /></td>
+                <td><img className="tableImages" src={'/assets/'+q.image} alt={q.title} /></td>
                 <td>{q.title.length > 35 ? q.title.substring(0,35)+'...' : q.title}</td>
                 <td>{q.addedBy.length > 20 ? q.addedBy.substring(0,20)+'...' : q.addedBy}</td>
                 <td>{q.category.title}</td>

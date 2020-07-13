@@ -65,7 +65,7 @@ class Edit extends Component {
     
     render() {
     const Image = this.state.image ? <img alt={this.state.fields.title} className="detailImage"  src={this.state.image} /> : 
-    <img alt={this.state.fields.title} className="detailImage"  src={this.state.fields.image} 
+    <img alt={this.state.fields.title} className="detailImage"  src={'/assets/'+this.state.fields.image} 
     />
     return (
             <div>

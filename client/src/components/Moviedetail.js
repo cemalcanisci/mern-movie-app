@@ -19,7 +19,7 @@ const description = htmlEntities.decode(this.props.movie.description);
             <div>
                 <Card>
                     <div className="border d-flex flex-row mb-2 justify-content-around align-items-center">
-                        <Card.Img className="detailImage" src={this.props.movie.image} />
+                        <Card.Img className="detailImage" src={'/assets/'+this.props.movie.image} />
                         <Card.Title> <strong className="text-danger"> <h3> {this.props.movie.title}</h3> </strong> </Card.Title>
                     </div>
                     <div>

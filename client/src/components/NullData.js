@@ -7,7 +7,7 @@ export default class NullData extends Component {
                 <h2 className="text-center text-danger">Önemli Uyarı!!</h2>
                 {this.props.message ? <h3 className="text-center">{this.props.message}</h3> : 'Boş'}
 
-                <img src="/null.jpg" alt="Null Data" className="w-100" ></img>
+                <img src="/null.png" alt="Null Data" className="w-100" ></img>
             </div>
         )
     }
