@@ -10,10 +10,14 @@ export default class App extends Component {
   isDataInitialized = false;
 
   render() {
+    const links = [
+      {path:'/',name:'Filmler'},
+      {path:'/order',name:'Sıralama'},
+    ]
     return (
-      <div>
+      <div className="container">
       <Router>
-      <Header />
+      <Header props={links} />
       <RouteComponent />
         </Router>
 

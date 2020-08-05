@@ -1,53 +1,42 @@
-import React, { Component } from 'react'
-import Movielist from './Movielist';
-import Moviedetail from './Moviedetail';
-import Edit from './Edit';
-import Add from './Add';
-import CategoryList from './CategoryList';
-import Order from './Order';
-import ChangeCategory from './ChangeCategory';
+import React, { Component } from 'react';
 import {
   Switch,
-  Route
-} from "react-router-dom";
+  Route,
+} from 'react-router-dom';
+import Movies from './Pages/Movies';
+
 export default class RouteComponent extends Component {
-  updateMovieDetail = (id)=>{
-    console.log(id);
-  }
-
   render() {
-
     return (
       <div>
         <Switch>
-        <Route path="/detay/:movieId">
-        <Moviedetail  />
+          <Route path="/detay/:movieId">
+            <Movies />
           </Route>
           <Route path="/kategori">
-            <CategoryList />
+            <Movies />
           </Route>
           <Route path="/duzenle/:movieId">
-          <Edit />
+            <Movies />
           </Route>
           <Route path="/ekle">
-          <Add />
+            <Movies />
           </Route>
           <Route path="/siralama">
-            <Order />
-            </Route>
+            <Movies />
+          </Route>
           <Route path="/kategori-degistir">
-            <ChangeCategory />
-            </Route>
+            <Movies />
+          </Route>
           <Route path="/users">
             Users
-            </Route>
-          <Route path="/">
-            <Movielist/>
           </Route>
- 
+          <Route path="/">
+            <Movies />
+          </Route>
+
         </Switch>
       </div>
-    )
+    );
   }
 }
-

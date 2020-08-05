@@ -1,70 +1,45 @@
-.header {
-    background-color: #3e444a;
-
-}
-.wrap{
-    flex-wrap: wrap;
-}
-.bg-first{
-    background-color: #454d55;
-    height: 4rem;
-}
-.bg-second{
-    background-color: #343a40;
-    height: 4rem;
-
-}
-.only-rounded-left{
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
-.tableImages {
-    width: 120px;
-}
-.detailImage{
-    width: 300px;
-    height: 300px;
-}
-.no-dot{
-    list-style-type: none;
-
-}
-.active-sort{
-    background: rgb(115,115,116);
-background: linear-gradient(90deg, rgba(115,115,116,0.4) 0%, rgba(203,194,194,0.2) 58%, rgba(115,115,116,0.4) 100%);
-border-radius: 10px; 
-list-style-type: none;
-}
-.react-paginate ul {
-    display: inline-block;
-    padding-left: 15px;
-    padding-right: 15px;
-    li {
-        display: inline-block;
-        border: 1px solid #333;
-        padding: 4px;
-        
-       
+nav {
+  .navbar-collapse {
+    @media (min-width: 768px) {
+      .input-group {
+        max-width: 50%;
+      }
     }
-    .active {
-        background-color: #6c757d;
-        color : #fff
+    .header {
+      a {
+        border: 0.1px solid #fefefe;
+        border-radius: 10px;
+        padding: 10px;
+        margin-right: 10px;
+      }
     }
-    .disabled{
-        background-color:#83878a85;
-        a{
-            cursor: default;
+  }
+}
+.pagination {
+  background: #3e444a;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  li {
+    color: #fff;
+    border: 0.1px solid #fefefe;
+    @media (min-width: 768px) {
+      padding: 1rem;
+    }
+    @media (max-width: 768px) {
+      &.previous {
+        display: none;
+      }
+      &.next {
+        display: none;
+      }
+    }
+    padding: 0.5rem;
 
-        }
+    &.active {
+      background-color: #1a1d1f;
     }
-    .previous{
-        margin-right: 1rem;
-        border-radius: 4px;
-    }
-    .next{
-        margin-left: 1rem;
-        border-radius: 4px;
-
-    }
-
+  }
 }
