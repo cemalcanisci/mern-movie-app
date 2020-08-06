@@ -1,15 +1,29 @@
 import React, { Component } from 'react';
 import ReactPaginate from 'react-paginate';
+import {connect} from 'react-redux';
+import { getMovies } from '../redux/actions/getMovies';
 
-export default class Paginate extends Component {
+ class Paginate extends Component {
+
+  handlePageClick =  data => {
+  const {moviesDatas,get} = this.props;
+   const {limit} = moviesDatas;
+   const page = (data.selected)+1;
+   const query = {limit,page}
+    get(query);
+  };
   render() {
-    return (
+    const {moviesDatas} = this.props;
+    const {limit,total} = moviesDatas;
+    const count = Math.ceil(total/limit);
+    
+      return (
       <ReactPaginate
         previousLabel="Önceki"
         nextLabel="Sonraki"
         breakLabel="..."
         breakClassName="break-me"
-        pageCount={10}
+        pageCount={count}
         marginPagesDisplayed={2}
         pageRangeDisplayed={3}
         onPageChange={this.handlePageClick}
@@ -20,3 +34,8 @@ export default class Paginate extends Component {
     );
   }
 }
+const mapStateToProps = state => state;
+const mapDispatchToProps = {
+  get:getMovies
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Paginate)

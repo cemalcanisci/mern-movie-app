@@ -1,22 +1,15 @@
-const categories = {
-    categories:[]
+const initialCategories = {
+  categories: [],
+  categoryErrors: '',
 };
 
-export default function category(state=categories,action){
-    switch(action.type){
-        case 'GET_CATEGORIES':
-            if(action.payload.data.length){
-            return {
-                categories:[...action.payload.data]
-            };
-
-            }
-            else{
-                return {
-                    categories:[],
-                    isNullData :true}
-                
-            }
-        default: return state;
-    }
+export default function categories(state = initialCategories, action) {
+  switch (action.type) {
+    case 'GET_CATEGORIES':
+      return {
+        ...state,
+        categories: [...action.payload.data],
+      };
+    default: return state;
+  }
 }

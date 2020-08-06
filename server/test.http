@@ -12,8 +12,8 @@ content-type: application/json
     "author":"Peter Jackson",
     "watched":true,
     "addedBy":"Cemal Can İŞÇİ",
-    "order":2,
-    "category":"Fantastik"
+    "order":7,
+    "category":"5f2bc0d1598f5f076aeef6c0"
 }
 
 ###

@@ -13,24 +13,31 @@ export default class RouteComponent extends Component {
           <Route path="/detay/:movieId">
             <Movies />
           </Route>
+
           <Route path="/kategori">
             <Movies />
           </Route>
+
           <Route path="/duzenle/:movieId">
             <Movies />
           </Route>
+
           <Route path="/ekle">
             <Movies />
           </Route>
+
           <Route path="/siralama">
             <Movies />
           </Route>
+
           <Route path="/kategori-degistir">
             <Movies />
           </Route>
+
           <Route path="/users">
             Users
           </Route>
+
           <Route path="/">
             <Movies />
           </Route>
