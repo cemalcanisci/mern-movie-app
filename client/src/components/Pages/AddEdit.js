@@ -8,73 +8,72 @@ import { getMovie } from '../../redux/actions/getMovies';
 class AddEdit extends Component {
   constructor(props) {
     super(props);
-    this.title = React.createRef();
     this.state = {
       isEdit: 'Hayır',
       movie: {
-
+        title: '',
       },
     };
   }
 
-  static getDerivedStateFromProps(props, state) {
-    const { match, movieDetail } = props;
-    const { error } = movieDetail;
-    const { path } = match;
-    if (path === '/duzenle/:movieId' && !error) {
-      return {
-        isEdit: 'Evet',
-        movie: {
-          ...props.movieDetail.movie,
-        },
-      };
-    }
-    return {
-      isEdit: 'Hayır',
-      movie: {},
-    };
-  }
-
   componentDidMount() {
-    const { match, get } = this.props;
+    const { match, get, movieDetail } = this.props;
     const { path, params } = match;
     const { movieId } = params;
-    this.title.current.value = '';
     if (path === '/duzenle/:movieId') {
       get(movieId);
     }
   }
 
   submit=() => {
-    console.log(this.title.current.value);
+    console.log(this.state);
   }
 
-  render() {
-    const { isEdit } = this.state;
-    const { movieDetail } = this.props;
-    const { error } = movieDetail;
-    const { movie } = this.state;
-    console.log(movie);
-    if (movie && movie.title) {
-      this.title.current.value = movie.title;
+    changeThis = (e) => {
+      const { value, name } = e.target;
+      this.setState({
+        movie: {
+          [name]: value,
+        },
+      });
     }
-    return (
-      <div>
-        {error ? <Null text={error} /> : (
-          <div>
-            <InputGroup size="sm" className="mb-3">
-              <InputGroup.Prepend>
-                <InputGroup.Text id="movie-name">{isEdit}</InputGroup.Text>
-              </InputGroup.Prepend>
-              <FormControl ref={this.title} aria-label="Film Adı" aria-describedby="movie-name" />
-            </InputGroup>
-            <Button onClick={this.submit} variant="outline-primary" size="lg">Cemal</Button>
-          </div>
-        )}
 
-      </div>
-    );
-  }
+    componentDidUpdate(prevProps) {
+      console.log(this.props.match.path, prevProps.match.props);
+      if ((prevProps.movieDetail.movie.title !== this.props.movieDetail.movie.title) || this.props.match.path !== prevProps.match.path) {
+        this.setState({
+          movie: {
+            ...this.state.movie,
+            title: this.props.movieDetail.movie.title,
+          },
+        });
+      }
+    }
+
+    render() {
+      const { isEdit } = this.state;
+      const { movieDetail, match } = this.props;
+      const { path } = match;
+      console.log(path);
+      const edit = path === '/duzenle/:movieId';
+      const { error, movie } = movieDetail;
+      return (
+        <div>
+          {error ? <Null text={error} /> : (
+            <div className="mt-2 container">
+              <InputGroup size="sm" className="mb-3">
+                <InputGroup.Prepend>
+                  <InputGroup.Text id="movie-name">{isEdit}</InputGroup.Text>
+                </InputGroup.Prepend>
+                <FormControl name="title" onChange={this.changeThis} type="text" value={edit ? this.state.movie.title : ''} aria-label="Film Adı" aria-describedby="movie-name" />
+              </InputGroup>
+              <Button onClick={this.submit} variant="outline-primary" size="lg">Cemal</Button>
+            </div>
+          )}
+
+        </div>
+      );
+    }
 }
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = {
