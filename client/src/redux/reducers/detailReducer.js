@@ -1,16 +1,21 @@
 const initialState = {
   movie: {},
   newImageUrl: null,
+  error: '',
 };
 export default function getMovie(state = initialState, action) {
   switch (action.type) {
     case 'GET_MOVIE':
-      return { ...action.payload };
+      return {
+        ...state,
+        movie: { ...action.payload },
+        error: '',
+      };
 
     case 'GET_ERRORS':
       return {
         ...state,
-        errors: action.payload.message,
+        error: action.payload,
       };
 
     default: return state;

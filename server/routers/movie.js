@@ -5,6 +5,7 @@ router.get('/:id',(req,res)=>{
     MovieModel.findById(req.params.id)
     .populate('category')
      .then(movie=>res.json(movie))
+     .catch(err=>res.status(500).json(err))
 
 })
 router.put('/change-status/:id',(req,res)=>{

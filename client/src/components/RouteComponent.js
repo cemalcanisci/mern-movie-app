@@ -4,6 +4,7 @@ import {
   Route,
 } from 'react-router-dom';
 import Movies from './Pages/Movies';
+import AddEdit from './Pages/AddEdit';
 
 export default class RouteComponent extends Component {
   render() {
@@ -19,11 +20,11 @@ export default class RouteComponent extends Component {
           </Route>
 
           <Route path="/duzenle/:movieId">
-            <Movies />
+            <AddEdit />
           </Route>
 
           <Route path="/ekle">
-            <Movies />
+            <AddEdit />
           </Route>
 
           <Route path="/siralama">

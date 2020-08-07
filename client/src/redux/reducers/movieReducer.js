@@ -20,7 +20,7 @@ export default function getMovies(state = initialState, action) {
     case 'GET_MOVIE_ERRORS':
       return {
         ...state,
-        errors: action.payload.message,
+        errors: action.payload,
       };
     default: return state;
   }
