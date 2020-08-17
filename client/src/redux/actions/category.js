@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const get = () => async (dispatch) => {
+export const getCategories = () => async (dispatch) => {
   try {
     const categories = await axios.get('/api/category');
     dispatch({ type: 'GET_CATEGORIES', payload: categories });

@@ -5,17 +5,16 @@ const etag = require('etag');
 const MovieModel = require('../models/movie');
 
 router.get('/', (req, res) => {
-  const query = {
-    page: req.query.page,
-    limit: Number(req.query.limit),
-  };
+  const query = {};
+  query.page = req.query && req.query.page ? req.query.page : undefined;
+  query.limit = req.query && req.query.limit ? Number(req.query.limit) : 0;
 
   let offset = 0;
-  if (query.page > 1) {
+  if (query.page && query.page > 1) {
     offset = (query.page - 1) * query.limit;
   }
   const movies = MovieModel.find()
-    .sort({ order: 1 })
+    .sort({ order: -1 })
     .limit(query.limit)
     .skip(offset)
     .populate('category');

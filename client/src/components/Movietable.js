@@ -41,7 +41,8 @@ class MovieTable extends Component {
               <td>{movie.watched ? 'Evet' : 'Hayır'}</td>
               <td className="d-flex justify-content-start align-items-center">
                 <Button className="mr-1" onClick={() => this.updateMovieStatus(movie._id, movie.watched)} size="sm" variant={movie.watched ? 'outline-primary' : 'outline-danger'}><FontAwesomeIcon icon={movie.watched ? faCheck : faMinus} /></Button>
-                <Link to={`/duzenle/${movie._id}`}><Button variant="outline-success" size="sm">Düzenle</Button></Link>
+                <Link to={`/duzenle/${movie._id}`}><Button variant="outline-success mr-1" size="sm">Düzenle</Button></Link>
+                <Link to={`/detay/${movie._id}`}><Button variant="outline-warning" size="sm">Detay</Button></Link>
               </td>
             </tr>
           ))}

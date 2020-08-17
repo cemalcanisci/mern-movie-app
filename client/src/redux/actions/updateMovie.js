@@ -27,19 +27,16 @@ export const update = (data, image, history) => async (dispatch) => {
 
       const formData = new FormData();
       formData.append('file', image);
-      const res = await axios.post('/api/upload-image', formData);
-      if (res) {
-
-      }
+      await axios.post('/api/upload-image', formData);
     } else {
       newData = { ...data };
     }
-    axios.put(`/api/movie/update/${newData._id}`, { newData })
-      .then((res) => {
-        dispatch({ type: 'GET_MOVIE', payload: res.data });
-
-        history.push('/');
-      });
+    axios.put(`/api/movie/update/${newData._id}`, { newData });
+    const allMovies = await axios.get('/api/movies?page=1&limit=2');
+    dispatch({ type: 'GET_MOVIES', payload: allMovies.data, page: 1 });
+    const movie = await axios.get(`/api/movie/${newData._id}`);
+    dispatch({ type: 'GET_MOVIE', payload: movie.data });
+    history.push('/');
   } catch (err) {
     dispatch({ type: 'GET_ERRORS', payload: err });
   }

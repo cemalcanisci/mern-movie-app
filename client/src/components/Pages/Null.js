@@ -5,7 +5,9 @@ export default function Null(props) {
 
   return (
     <div>
-      <span>{text}</span>
+      <span>
+        {text}
+      </span>
     </div>
   );
 }

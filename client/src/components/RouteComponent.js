@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 import Movies from './Pages/Movies';
 import AddEdit from './Pages/AddEdit';
+import Detail from './Pages/Detail';
 
 export default class RouteComponent extends Component {
   render() {
@@ -12,7 +13,7 @@ export default class RouteComponent extends Component {
       <div>
         <Switch>
           <Route path="/detay/:movieId">
-            <Movies />
+            <Detail />
           </Route>
 
           <Route path="/kategori">

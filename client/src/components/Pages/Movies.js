@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MovieList from '../MovieList';
 import Null from './Null';
-import { get } from '../../redux/actions/category';
+import { getCategories } from '../../redux/actions/category';
 import { getMovies } from '../../redux/actions/getMovies';
 
 class Movies extends Component {
   componentDidMount() {
-    const { getCategories, moviesDatas, movies } = this.props;
+    const { categories, moviesDatas, movies } = this.props;
     const { limit, page } = moviesDatas;
     const query = { limit, page };
-    getCategories();
+    categories();
     movies(query);
   }
 
@@ -33,7 +33,7 @@ class Movies extends Component {
 }
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = {
-  getCategories: get,
+  categories: getCategories,
   movies: getMovies,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Movies);
