@@ -6,6 +6,8 @@ import {
 import Movies from './Pages/Movies';
 import AddEdit from './Pages/AddEdit';
 import Detail from './Pages/Detail';
+import Categories from './Pages/Categories';
+import Order from './Pages/Order';
 
 export default class RouteComponent extends Component {
   render() {
@@ -17,7 +19,7 @@ export default class RouteComponent extends Component {
           </Route>
 
           <Route path="/kategori">
-            <Movies />
+            <Categories />
           </Route>
 
           <Route path="/duzenle/:movieId">
@@ -29,7 +31,7 @@ export default class RouteComponent extends Component {
           </Route>
 
           <Route path="/siralama">
-            <Movies />
+            <Order />
           </Route>
 
           <Route path="/kategori-degistir">

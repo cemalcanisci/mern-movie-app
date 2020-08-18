@@ -8,12 +8,12 @@ export const getCategories = () => async (dispatch) => {
     dispatch({ type: 'GET_CATEGORY_ERRORS', payload: error });
   }
 };
-export const set = (values) => async (dispatch) => {
+export const set = (values, removedFields) => async (dispatch) => {
   try {
     const data = {
-      updated: [...values.fields.filter((q) => q.status)],
-      removed: [...values.removedFields],
-      added: [...values.newFields],
+      updated: [...values.filter((q) => q._id && q.modified)],
+      removed: [...removedFields],
+      added: [...values.filter((q) => !q._id)],
     };
     await axios.post('/api/category/set', data);
   } catch (error) {

@@ -64,6 +64,7 @@ class Detail extends Component {
               </Row>
               <Row className="mx-0">
                 {description}
+
               </Row>
               <div />
             </Card>

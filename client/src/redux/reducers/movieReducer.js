@@ -12,9 +12,9 @@ export default function getMovies(state = initialState, action) {
     case 'GET_MOVIES':
       return {
         ...state,
-        page: action.page,
+        page: action.page ? action.page : state.page,
         movies: action.payload.data,
-        total: action.payload.total,
+        total: action.payload.total ? action.payload.total : action.payload.data.length,
       };
 
     case 'GET_MOVIE_ERRORS':
