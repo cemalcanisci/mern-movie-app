@@ -3,7 +3,9 @@ import axios from 'axios';
 export const getMovies = (query) => async (dispatch) => {
   try {
     const movies = await axios.get(`/api/movies?page=${query.page}&limit=${query.limit}`);
-    dispatch({ type: 'GET_MOVIES', payload: movies.data, page: query.page });
+    dispatch({
+      type: 'GET_MOVIES', payload: movies.data, page: query.page, limit: query.limit,
+    });
   } catch (error) {
     dispatch({ type: 'GET_MOVIE_ERRORS', payload: error });
   }

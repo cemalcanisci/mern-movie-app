@@ -54,3 +54,12 @@ nav {
 .category-inputs {
   width: 70%;
 }
+
+ul.no-dot {
+  li {
+    list-style: none;
+  }
+}
+li.active-sort {
+  list-style: none;
+}

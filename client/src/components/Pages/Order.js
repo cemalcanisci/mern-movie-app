@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import { connect } from 'react-redux';
+import { Card } from 'react-bootstrap';
+import Null from './Null';
 
 import { getMoviesForOrder } from '../../redux/actions/getMovies';
 import { updateOrder } from '../../redux/actions/updateMovie';
@@ -10,7 +12,6 @@ class Order extends Component {
     super(props);
     this.state = {
       movies: [],
-      isFirstLoad: true,
     };
   }
 
@@ -20,20 +21,48 @@ class Order extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.moviesDatas.movies.length && prevState.isFirstLoad) {
+    if (nextProps.moviesDatas.movies.length
+      && (nextProps.moviesDatas.movies.length !== prevState.movies.length)) {
       return {
         movies: [...nextProps.moviesDatas.movies],
-        isFirstLoad: false,
       };
     }
     return null;
   }
 
+  onSortEnd = ({ oldIndex, newIndex }) => {
+    console.log(oldIndex);
+    console.log(newIndex);
+  };
+
   render() {
-    console.log(this.state);
+    const { movies } = this.state;
+    const SortableItem = SortableElement(({ value, sortIndex }) => (
+      <li className="mt-2 text-center ">
+        {value}
+      </li>
+    ));
+    const SortableList = SortableContainer(({ items }) => (
+      <ul className="no-dot p-0">
+        {items.map((value, index) => (
+          <SortableItem
+
+            key={`item-${value._id}`}
+            index={index}
+            sortIndex={index}
+            value={value.title}
+          />
+        ))}
+      </ul>
+    ));
     return (
       <div>
-        Order sayfası
+        {movies.length ? (
+          <Card>
+            {' '}
+            <SortableList helperClass="active-sort bg-secondary text-white border border-success rounded-pill" key={movies._id} items={movies} onSortEnd={this.onSortEnd} />
+          </Card>
+        ) : <Null text="Henüz hiç film yüklemediniz" />}
       </div>
     );
   }
