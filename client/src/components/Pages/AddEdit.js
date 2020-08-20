@@ -262,7 +262,7 @@ class AddEdit extends Component {
 
         </Row>
 
-        <Button onClick={this.check} variant="outline-primary mt-3" size="lg">Cemal</Button>
+        <Button onClick={this.check} variant="outline-primary mt-3" size="lg">Kaydet</Button>
       </Container>
     );
     const hasError = !error ? data : <Null text={error} />;

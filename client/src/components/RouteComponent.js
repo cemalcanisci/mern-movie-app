@@ -8,6 +8,7 @@ import AddEdit from './Pages/AddEdit';
 import Detail from './Pages/Detail';
 import Categories from './Pages/Categories';
 import Order from './Pages/Order';
+import ChangeCategory from './Pages/ChangeCategory';
 
 export default class RouteComponent extends Component {
   render() {
@@ -35,7 +36,7 @@ export default class RouteComponent extends Component {
           </Route>
 
           <Route path="/kategori-degistir">
-            <Movies />
+            <ChangeCategory />
           </Route>
 
           <Route path="/users">

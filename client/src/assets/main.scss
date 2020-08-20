@@ -56,10 +56,27 @@ nav {
 }
 
 ul.no-dot {
+  @media (min-width: 762px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   li {
     list-style: none;
+    background: #efefef;
+    @media (min-width: 762px) {
+      width: 50%;
+    }
   }
 }
 li.active-sort {
   list-style: none;
+}
+.editor-element {
+  width: 100%;
+  figure.media {
+    div {
+      width: 100%;
+    }
+  }
 }

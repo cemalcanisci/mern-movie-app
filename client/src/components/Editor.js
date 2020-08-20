@@ -5,10 +5,17 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 export default function Editor(props) {
   const { description, setDescription } = props;
+  const editorConfiguration = {
+    removePlugins: ['ImageUpload'],
+    mediaEmbed: {
+      previewsInData: true,
+    },
+  };
   return (
     <CKEditor
       className="my-3"
       editor={ClassicEditor}
+      config={editorConfiguration}
       data={description}
       onChange={(event, editor) => {
         setDescription(editor.getData());

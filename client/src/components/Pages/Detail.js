@@ -63,8 +63,7 @@ class Detail extends Component {
                 </Col>
               </Row>
               <Row className="mx-0">
-                {description}
-
+                <div className="editor-element" dangerouslySetInnerHTML={{ __html: description }} />
               </Row>
               <div />
             </Card>

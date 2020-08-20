@@ -31,16 +31,24 @@ class Order extends Component {
   }
 
   onSortEnd = ({ oldIndex, newIndex }) => {
-    console.log(oldIndex);
-    console.log(newIndex);
+    const { update } = this.props;
+    const { movies } = this.state;
+    const newArr = [...movies];
+    const spliced = newArr.splice(oldIndex, 1)[0];
+    newArr.splice(newIndex, 0, spliced);
+    this.setState({
+      movies: newArr,
+    });
+    update(newArr);
   };
 
   render() {
     const { movies } = this.state;
     const SortableItem = SortableElement(({ value, sortIndex }) => (
-      <li className="mt-2 text-center ">
+      <li className="mt-2 text-center border p-1">
         {value}
       </li>
+
     ));
     const SortableList = SortableContainer(({ items }) => (
       <ul className="no-dot p-0">
@@ -60,7 +68,7 @@ class Order extends Component {
         {movies.length ? (
           <Card>
             {' '}
-            <SortableList helperClass="active-sort bg-secondary text-white border border-success rounded-pill" key={movies._id} items={movies} onSortEnd={this.onSortEnd} />
+            <SortableList helperClass="active-sort bg-secondary text-white border border-success" key={movies._id} items={movies} onSortEnd={this.onSortEnd} />
           </Card>
         ) : <Null text="Henüz hiç film yüklemediniz" />}
       </div>
