@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
     offset = (query.page - 1) * query.limit;
   }
   const movies = MovieModel.find()
-    .sort({ order: -1 })
+    .sort({ order: 1 })
     .limit(query.limit)
     .skip(offset)
     .populate('category');
