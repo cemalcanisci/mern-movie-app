@@ -1,10 +1,10 @@
 nav {
   .navbar-collapse {
-    @media (min-width: 768px) {
-      .input-group {
-        max-width: 50%;
-      }
-    }
+    // @media (min-width: 992px) {
+    //   .input-group {
+    //     max-width: 65%;
+    //   }
+    // }
     .header {
       a {
         border: 0.1px solid #fefefe;
@@ -26,10 +26,10 @@ nav {
   li {
     color: #fff;
     border: 0.1px solid #fefefe;
-    @media (min-width: 768px) {
+    @media (min-width: 762px) {
       padding: 1rem;
     }
-    @media (max-width: 768px) {
+    @media (max-width: 762px) {
       &.previous {
         display: none;
       }
@@ -78,5 +78,13 @@ li.active-sort {
     div {
       width: 100%;
     }
+  }
+}
+.bg-grad {
+  background-image: linear-gradient(to right, #636262, #dcdcdc);
+}
+.null-image {
+  @media (max-width: 762px) {
+    width: 100%;
   }
 }

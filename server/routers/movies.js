@@ -1,7 +1,6 @@
 const express = require('express');
 
 const router = express.Router();
-const etag = require('etag');
 const MovieModel = require('../models/movie');
 
 router.get('/', (req, res) => {
@@ -18,14 +17,8 @@ router.get('/', (req, res) => {
     .limit(query.limit)
     .skip(offset)
     .populate('category');
-  const date = new Date().toString();
   movies.then(async (movie) => {
-    let body = '';
-    for (const i of movie) {
-      body += i.title;
-    }
     const total = await MovieModel.countDocuments({});
-    res.setHeader('ETag', etag(body + date));
     res.json({
       data: movie,
       total,

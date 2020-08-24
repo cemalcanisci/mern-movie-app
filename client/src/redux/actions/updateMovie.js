@@ -12,12 +12,12 @@ export const updateMovie = (id, watched, query) => (dispatch) => {
     dispatch({ type: 'GET_ERRORS', payload: err });
   }
 };
-export const updateOrder = (data) => async (dispatch) => {
+export const updateOrder = (data) => async () => {
   const orderedData = [...data];
   orderedData.forEach((q, key) => {
     q.order = key;
   });
-  const movies = axios.put('/api/movies/order', orderedData);
+  axios.put('/api/movies/order', orderedData);
 };
 export const update = (data, image, history) => async (dispatch) => {
   try {

@@ -17,6 +17,7 @@ class Categories extends Component {
       isFirstLoad: true,
       isEdit: false,
       removedCategories: [],
+      error: '',
     };
   }
 
@@ -32,14 +33,31 @@ class Categories extends Component {
         categories: [...nextProps.categoriesDatas.categories],
         isFirstLoad: false,
         isEdit: false,
+        error: '',
       };
     }
     return null;
   }
 
-  sendCategories = () => {
-    const { send } = this.props;
+  validate=() => {
     const { categories, removedCategories } = this.state;
+    if (categories.some((category) => !category.title)) {
+      this.setState({
+        error: 'Kategori ismini boş gönderemezsiniz',
+      });
+    } else {
+      this.setState({
+        error: '',
+      });
+      this.sendCategories(categories, removedCategories);
+    }
+  }
+
+  sendCategories = (categories, removedCategories) => {
+    const { send } = this.props;
+    this.setState({
+      isEdit: false,
+    });
     send(categories, removedCategories);
   }
 
@@ -88,23 +106,29 @@ class Categories extends Component {
   }
 
   render() {
-    const { categories, isEdit } = this.state;
+    const { categories, isEdit, error } = this.state;
     return (
       <div>
-        <Row className="text-center bg-dark align-items-center">
+        <Row className="text-center bg-dark align-items-center w-100 m-0">
           <Col xs={4} md={4}>
-            <Button onClick={(e) => this.setState({ isEdit: !isEdit })} variant="outline-warning  p-1 ml-2 my-2" size="sm">{isEdit ? 'Düzenlemeyi Pasifleştir' : 'Düzenlemeyi Aktifleştir'}</Button>
+            <Button onClick={() => this.setState({ isEdit: !isEdit })} variant="outline-warning  p-1 ml-2 my-2" size="sm">{isEdit ? 'Düzenlemeyi Pasifleştir' : 'Düzenlemeyi Aktifleştir'}</Button>
           </Col>
           <Col xs={4} md={4}>
             <Button onClick={this.addNewCategory} variant="outline-danger text-white p-1 my-2" size="sm">Yeni Kategori Ekle</Button>
           </Col>
           <Col xs={4} md={4}>
-            <Button onClick={this.sendCategories} variant="outline-success text-white p-1 my-2" size="sm">Kaydet</Button>
+            <Button onClick={this.validate} variant="outline-success text-white p-1 my-2" size="sm">Kaydet</Button>
           </Col>
         </Row>
-        <Row className="text-center text-white">
+        {error ? (
+          <Row className="w-100 m-0 d-flex align-items-center p-2 bg-grad">
+            <h3 className="text-danger m-0">Hata : </h3>
+            <strong className="ml-2 text-white">{error}</strong>
+          </Row>
+        ) : ''}
+        <Row className="text-center text-white w-100 m-0">
           {categories.length ? categories.map((category, index) => (
-            <Col key={index} xs={12} md={4} className={`${index % 2 === 0 ? ' categories-first' : 'categories-second'} p-3`}>
+            <Col key={index} xs={12} md={4} className={`${index % 2 === 0 ? ' categories-first' : 'categories-second'} py-3`}>
               {isEdit ? (
                 <div>
                   <input

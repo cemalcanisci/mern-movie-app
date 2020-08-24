@@ -9,42 +9,46 @@ import Detail from './Pages/Detail';
 import Categories from './Pages/Categories';
 import Order from './Pages/Order';
 import ChangeCategory from './Pages/ChangeCategory';
+import Null from './Pages/Null';
 
 export default class RouteComponent extends Component {
   render() {
     return (
       <div>
         <Switch>
-          <Route path="/detay/:movieId">
+          <Route exact path="/detay/:movieId">
             <Detail />
           </Route>
 
-          <Route path="/kategori">
+          <Route exact path="/kategori">
             <Categories />
           </Route>
 
-          <Route path="/duzenle/:movieId">
+          <Route exact path="/duzenle/:movieId">
             <AddEdit />
           </Route>
 
-          <Route path="/ekle">
+          <Route exact path="/ekle">
             <AddEdit />
           </Route>
 
-          <Route path="/siralama">
+          <Route exact path="/siralama">
             <Order />
           </Route>
 
-          <Route path="/kategori-degistir">
+          <Route exact path="/kategori-degistir">
             <ChangeCategory />
           </Route>
 
-          <Route path="/users">
+          <Route exact path="/users">
             Users
           </Route>
 
-          <Route path="/">
+          <Route exact path="/">
             <Movies />
+          </Route>
+          <Route exact>
+            <Null text="Aradığınız sayfa bulunamadı" />
           </Route>
 
         </Switch>

@@ -1,4 +1,5 @@
 const CategoryModel = require('../models/category');
+const MovieModel = require('../models/movie');
 
 const add = async function (req, res, next) {
   const addedData = req.body.added;
@@ -24,7 +25,9 @@ const remove = async function (req, res, next) {
   if (removedData.length) {
     response = true;
     removedData.forEach(async (element) => {
-      await CategoryModel.deleteOne({ _id: element._id });
+      await CategoryModel.deleteOne({ _id: element._id }).then(async () => {
+        await MovieModel.deleteMany({ category: element._id });
+      });
     });
   }
 
