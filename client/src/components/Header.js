@@ -1,18 +1,32 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Navbar, Nav, InputGroup, FormControl, Button,
 } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
 export default function Header() {
-  const ifEnterPressed = ({ callback, event }) => {
-    if (event.key === 'Enter') {
-      callback();
-    }
+  const searchInput = useRef(null);
+  const submitSearch = (value) => {
+
   };
   const setSearch = () => {
-    console.log('arama');
+    if (searchInput.current.value) {
+      submitSearch(searchInput.current.value);
+    }
   };
+  const ifEnterPressed = (event) => {
+    if (event.key === 'Enter') {
+      setSearch();
+      searchInput.current.value = '';
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keydown', ifEnterPressed);
+    return () => {
+      window.removeEventListener('keydown', ifEnterPressed);
+    };
+  });
   return (
     <Navbar bg="dark" expand="lg" className="text-center">
       <Navbar.Brand className="text-white" to="/">MERN Movie App</Navbar.Brand>
@@ -28,7 +42,7 @@ export default function Header() {
           <FormControl
             placeholder="Ara..."
             aria-label="Ara..."
-            onKeyUp={(event) => ifEnterPressed({ callback: setSearch, event })}
+            ref={searchInput}
           />
           <InputGroup.Append>
             <Button onClick={setSearch} variant="secondary">Ara</Button>

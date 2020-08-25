@@ -51,7 +51,7 @@ export default class Croppie extends Component {
 
       const ctx = canvas.getContext('2d');
 
-      ctx.fillStyle = 'white';
+      ctx.fillStyle = '#fff';
 
       ctx.fillRect(0, 0, crop.width, crop.height);
       ctx.drawImage(

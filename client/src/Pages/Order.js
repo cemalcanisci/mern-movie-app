@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { Card } from 'react-bootstrap';
 import Null from './Null';
 
-import { getMoviesForOrder } from '../../redux/actions/getMovies';
-import { updateOrder } from '../../redux/actions/updateMovie';
+import { getMoviesForOrder } from '../Redux/Actions/getMovies';
+import { updateOrder } from '../Redux/Actions/updateMovie';
 
 class Order extends Component {
   constructor(props) {

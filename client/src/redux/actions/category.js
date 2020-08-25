@@ -17,6 +17,6 @@ export const set = (values, removedFields) => async () => {
     };
     await axios.post('/api/category/set', data);
   } catch (error) {
-    console.log(error);
+
   }
 };

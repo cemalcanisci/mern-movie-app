@@ -1,5 +1,5 @@
-const CategoryModel = require('../models/category');
-const MovieModel = require('../models/movie');
+const CategoryModel = require('../Models/category');
+const MovieModel = require('../Models/movie');
 
 const add = async function (req, res, next) {
   const addedData = req.body.added;

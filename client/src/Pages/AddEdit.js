@@ -4,14 +4,14 @@ import { withRouter } from 'react-router-dom';
 import {
   InputGroup, FormControl, Button, Container, Row, Col,
 } from 'react-bootstrap';
-import Editor from '../Editor';
-import Croppie from '../Croppie';
+import Editor from '../Components/Editor';
+import Croppie from '../Components/Croppie';
 import Null from './Null';
 
-import { getMovie } from '../../redux/actions/getMovies';
-import { getCategories } from '../../redux/actions/category';
-import { update } from '../../redux/actions/updateMovie';
-import addMovie from '../../redux/actions/addMovie';
+import { getMovie } from '../Redux/Actions/getMovies';
+import { getCategories } from '../Redux/Actions/category';
+import { update } from '../Redux/Actions/updateMovie';
+import addMovie from '../Redux/Actions/addMovie';
 
 class AddEdit extends Component {
   constructor(props) {
@@ -151,6 +151,7 @@ class AddEdit extends Component {
     const { categories } = categoriesDatas;
     const { movie, file } = this.state;
     const { path } = match;
+
     if (path === '/duzenle/:movieId') {
       updateMovie(movie, file, history);
     } else {

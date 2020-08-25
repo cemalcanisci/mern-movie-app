@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import MovieList from '../MovieList';
+import MovieList from '../Components/MovieList';
 import Null from './Null';
-import { getCategories } from '../../redux/actions/category';
-import { getMovies } from '../../redux/actions/getMovies';
+import { getCategories } from '../Redux/Actions/category';
+import { getMovies } from '../Redux/Actions/getMovies';
 
 class Movies extends Component {
   componentDidMount() {

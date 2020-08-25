@@ -1,8 +1,8 @@
 const express = require('express');
 
 const router = express.Router();
-const CategoryModel = require('../models/category');
-const { add, update, remove } = require('../middlewares/category');
+const CategoryModel = require('../Models/category');
+const { add, update, remove } = require('../Middlewares/category');
 
 const setMiddlewares = [update, add, remove];
 router.get('/', (req, res) => {

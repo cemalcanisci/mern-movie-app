@@ -7,7 +7,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-import { getCategories, set } from '../../redux/actions/category';
+import { getCategories, set } from '../Redux/Actions/category';
 
 class Categories extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class Categories extends Component {
   }
 
   componentDidMount() {
-    const { get } = this.props;
+    const { get } = this.props;
     get();
   }
 

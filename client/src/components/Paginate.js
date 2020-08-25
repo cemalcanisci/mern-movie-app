@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactPaginate from 'react-paginate';
 import { connect } from 'react-redux';
-import { getMovies } from '../redux/actions/getMovies';
+import { getMovies } from '../Redux/Actions/getMovies';
 
 class Paginate extends Component {
   constructor(props) {

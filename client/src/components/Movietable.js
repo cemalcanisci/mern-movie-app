@@ -4,7 +4,7 @@ import { Table, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faMinus } from '@fortawesome/free-solid-svg-icons';
-import { updateMovie } from '../redux/actions/updateMovie';
+import { updateMovie } from '../Redux/Actions/updateMovie';
 
 class MovieTable extends Component {
   updateMovieStatus = (id, watched) => {

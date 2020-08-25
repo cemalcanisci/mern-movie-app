@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import {
   Card, Container, Col, Row,
 } from 'react-bootstrap';
-import { getMovie } from '../../redux/actions/getMovies';
+import { getMovie } from '../Redux/Actions/getMovies';
 import Null from './Null';
 
 class Detail extends Component {

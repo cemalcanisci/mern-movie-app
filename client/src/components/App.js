@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../assets/main.scss';
+import '../Assets/main.scss';
 import {
   BrowserRouter as Router,
 } from 'react-router-dom';
