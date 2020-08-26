@@ -35,10 +35,6 @@ export default class RouteComponent extends Component {
             <Order />
           </Route>
 
-          <Route exact path="/users">
-            Users
-          </Route>
-
           <Route exact path="/">
             <Movies />
           </Route>

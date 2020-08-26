@@ -30,3 +30,11 @@ export const getMovie = (id) => async (dispatch) => {
     }
   }
 };
+export const getSearchedMovies = (value) => async (dispatch) => {
+  console.log(value);
+  // try {
+  //   console.log(value)
+  // } catch (error) {
+
+  // }
+};
