@@ -184,7 +184,6 @@ class AddEdit extends Component {
               ))}
             </Row>
           </div>
-
         ) : ''}
         <Row>
           <Col sm={12} md={6}>

@@ -10,7 +10,12 @@ function Header({ props, get }) {
   const searchInput = useRef(null);
   const history = useHistory();
   const submitSearch = (value) => {
-    get(value);
+    const query = {
+      value,
+      page: 1,
+      limit: 10,
+    };
+    get(query);
     history.push('/?search');
     searchInput.current.value = '';
   };

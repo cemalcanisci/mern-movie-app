@@ -6,7 +6,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 export default function Editor(props) {
   const { description, setDescription } = props;
   const editorConfiguration = {
-    removePlugins: ['ImageUpload'],
+    toolbar: ['heading', '|', 'bold', 'italic', 'blockQuote', 'link', '|', 'bulletedList', 'numberedList', 'mediaembed'],
     mediaEmbed: {
       previewsInData: true,
     },

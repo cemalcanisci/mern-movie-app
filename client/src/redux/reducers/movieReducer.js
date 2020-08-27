@@ -5,6 +5,11 @@ const initialState = {
   movieErrors: '',
   page: 1,
   limit: 2,
+  searchedMovies: [],
+  searchedPage: 1,
+  searchedLimit: 2,
+  searchedValue: '',
+  searchedTotal: 0,
 };
 
 export default function getMovies(state = initialState, action) {
@@ -15,8 +20,21 @@ export default function getMovies(state = initialState, action) {
         page: action.page ? action.page : state.page,
         movies: action.payload.data,
         total: action.payload.total ? action.payload.total : action.payload.data.length,
+        searchedMovies: [],
+        searchedPage: 1,
+        searchedLimit: 2,
+        searchedValue: '',
+        searchedTotal: 0,
       };
-
+    case 'SEARCHED_MOVIES':
+      return {
+        ...state,
+        searchedMovies: action.payload.data,
+        searchedTotal: action.payload.total,
+        searchedValue: action.value,
+        searchedPage: action.page,
+        searchedLimit: action.limit,
+      };
     case 'GET_MOVIE_ERRORS':
       return {
         ...state,
