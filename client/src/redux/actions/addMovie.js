@@ -1,9 +1,10 @@
 import axios from 'axios';
+import api from '../../api';
 
 const addMovie = (data, image, history) => async (dispatch) => {
   try {
     let newData;
-    const movies = await axios.get('/api/movies');
+    const movies = await api.getMoviles();
     const order = movies.data.total ? movies.data.total + 1 : 1;
     if (image) {
       newData = { ...data, image: `/${image.name}`, order };
