@@ -1,11 +1,17 @@
 import axios from 'axios';
 
-export const updateMovie = (id, watched, query) => (dispatch) => {
+export const updateMovie = (id, watched, query, querySearch, type) => (dispatch) => {
   try {
     axios.put(`/api/movie/change-status/${id}`, { watched })
       .then(async (res) => {
         dispatch({ type: 'UPDATE_STATUS', payload: res.data._id });
         const movies = await axios.get(`/api/movies?page=${query.page}&limit=${query.limit}`);
+        if (type === 'search') {
+          const searchedMovies = await axios.get(`/api/movies/search?key=${querySearch.value}&page=${querySearch.page}&limit=${querySearch.limit}`);
+          dispatch({
+            type: 'SEARCHED_MOVIES', payload: searchedMovies.data, value: querySearch.value, page: querySearch.page, limit: querySearch.limit,
+          });
+        }
         dispatch({ type: 'GET_MOVIES', payload: movies.data, page: query.page });
       });
   } catch (err) {

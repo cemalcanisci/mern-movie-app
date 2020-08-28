@@ -1,22 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { updateMovie } from '../Redux/Actions/updateMovie';
 
 class MovieTable extends Component {
   updateMovieStatus = (id, watched) => {
-    const { moviesDatas, update } = this.props;
-    const { limit, page } = moviesDatas;
+    const { moviesDatas, update, location } = this.props;
+    const { search } = location;
+    const type = search === '?search' ? 'search' : 'all';
+    const {
+      limit, page, searchedValue, searchedLimit, searchedPage,
+    } = moviesDatas;
+    const querySearch = {
+      value: searchedValue,
+      limit: searchedLimit,
+      page: searchedPage,
+    };
     const query = { limit, page };
-    update(id, watched, query);
+    update(id, watched, query, querySearch, type);
   }
 
   render() {
-    const { moviesDatas } = this.props;
-    const { movies, page, limit } = moviesDatas;
+    const { moviesDatas, location } = this.props;
+    const { search } = location;
+    const {
+      movies, page, limit, searchedMovies, searchedPage, searchedLimit,
+    } = moviesDatas;
+    const movieData = search === '?search' ? searchedMovies : movies;
+    const moviePage = search === '?search' ? searchedPage : page;
+    const movieLimit = search === '?search' ? searchedLimit : limit;
     return (
       <Table className="mb-0" responsive striped bordered hover variant="dark">
         <thead>
@@ -31,9 +46,9 @@ class MovieTable extends Component {
           </tr>
         </thead>
         <tbody>
-          {movies.map((movie, index) => (
+          {movieData.map((movie, index) => (
             <tr key={movie._id}>
-              <td>{(index + 1) + ((page - 1) * (limit))}</td>
+              <td>{(index + 1) + ((moviePage - 1) * (movieLimit))}</td>
               <td>{movie.title}</td>
               <td>{movie.author}</td>
               <td>{movie.addedBy}</td>
@@ -56,4 +71,4 @@ const mapStateToProps = (state) => state;
 const mapDispatchToProps = {
   update: updateMovie,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(MovieTable);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MovieTable));

@@ -20,11 +20,6 @@ export default function getMovies(state = initialState, action) {
         page: action.page ? action.page : state.page,
         movies: action.payload.data,
         total: action.payload.total ? action.payload.total : action.payload.data.length,
-        searchedMovies: [],
-        searchedPage: 1,
-        searchedLimit: 2,
-        searchedValue: '',
-        searchedTotal: 0,
       };
     case 'SEARCHED_MOVIES':
       return {

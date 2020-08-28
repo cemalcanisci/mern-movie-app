@@ -22,7 +22,7 @@ class Movies extends Component {
       limit: searchedLimit,
     };
     categories();
-    if (search === '?search') {
+    if (search === '?search' && searchedValue) {
       searched(searchQuery);
     }
     movies(query);
@@ -30,6 +30,7 @@ class Movies extends Component {
 
   render() {
     const { categoriesDatas, moviesDatas, location } = this.props;
+    console.log(this.props);
     const { search } = location;
     const { categories } = categoriesDatas;
     const {
