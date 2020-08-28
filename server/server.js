@@ -8,7 +8,6 @@ const moviesRouter = require('./Routers/movies');
 const movieRouter = require('./Routers/movie');
 const apiRouter = require('./Routers/api');
 const categoryRouter = require('./Routers/category');
-const MovieModel = require('./Models/movie');
 
 app.use(bodyParser.json());
 
@@ -24,4 +23,9 @@ mongoose.connect('mongodb://localhost:27017/mymovieapp', { useNewUrlParser: true
 
 app.listen(PORT, () => {
   console.log(`App listening on ${PORT} : PORT`);
+});
+
+process.on('SIGINT', () => {
+  console.log('Quitting');
+  process.exit();
 });
