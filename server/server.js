@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+require('dotenv').config();
 
 const app = express();
 
@@ -15,9 +16,10 @@ app.use('/api/movies', moviesRouter);
 app.use('/api/movie', movieRouter);
 app.use('/api', apiRouter);
 app.use('/api/category', categoryRouter);
-const PORT = 5000;
+const PORT = process.env.DB_PORT;
 
-mongoose.connect('mongodb://localhost:27017/mymovieapp', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+mongoose.connect(process.env.DB_HOST,
+  { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
   .then((res) => console.log('Mongoose connect successfully'))
   .catch((err) => console.log(err));
 

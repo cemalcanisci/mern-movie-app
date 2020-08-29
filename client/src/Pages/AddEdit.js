@@ -7,7 +7,7 @@ import {
 import Editor from '../Components/Editor';
 import Croppie from '../Components/Croppie';
 import Null from './Null';
-
+import api from '../Api'
 import { getMovie } from '../Redux/Actions/getMovies';
 import { getCategories } from '../Redux/Actions/category';
 import { update } from '../Redux/Actions/updateMovie';
@@ -40,50 +40,14 @@ class AddEdit extends Component {
     const { path, params } = match;
     const { movieId } = params;
     getCategory();
-    if (path === '/duzenle/:movieId') {
-      get(movieId);
+    if(movieId){
+      api.getMovie(movieId).then(res=>{
+        this.setState({
+          movie:res.data
+        })
+      })
     }
-  }
 
-  static getDerivedStateFromProps(props, state) {
-    if (props.match.path !== state.path) {
-      if (props.match.path === '/ekle') {
-        return {
-          path: '/ekle',
-          isCroppedImage: false,
-          isFirstLoad: false,
-          movie: {
-            addedBy: '',
-            category: '',
-            author: '',
-            description: 'İçerik giriniz..',
-            image: '/default.jpg',
-            order: 0,
-            title: '',
-            watched: true,
-          },
-        };
-      }
-      if (props.movieDetail.movie && props.movieDetail.movie._id
-        && state.isFirstLoad) {
-        return {
-          isFirstLoad: false,
-          path: '/duzenle/:movieId',
-          movie: { ...props.movieDetail.movie },
-        };
-      }
-    } else if (props.match.path !== '/ekle' && props.match.path === state.path
-      && props.movieDetail.movie && props.movieDetail.movie._id
-      && (state.isFirstLoad
-      )) {
-      return {
-        isFirstLoad: false,
-        path: '/duzenle/:movieId',
-        movie: { ...props.movieDetail.movie },
-      };
-    }
-    return null;
-  }
 
     changeThis = (e) => {
       let { value } = e.target;
@@ -132,7 +96,7 @@ class AddEdit extends Component {
     const { movie } = this.state;
     const errors = [];
     Object.keys(movie).forEach((value) => {
-      if (!movie[value] && value !== 'order' && value !== '__v' && value !== 'category') {
+      if (!movie[value] && value !== 'order' && value !== '__v' && value !== 'category' && value !== 'watched') {
         errors.push(`${value} alanının girilmesi zorunludur..`);
       }
     });

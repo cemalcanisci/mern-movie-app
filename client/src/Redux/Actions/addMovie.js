@@ -1,22 +1,21 @@
-import axios from 'axios';
-import api from '../../api';
+import api from '../../Api';
 
 const addMovie = (data, image, history) => async (dispatch) => {
   try {
     let newData;
-    const movies = await api.getMoviles();
+    const movies = await api.getMovies({})
     const order = movies.data.total ? movies.data.total + 1 : 1;
     if (image) {
       newData = { ...data, image: `/${image.name}`, order };
 
       const formData = new FormData();
       formData.append('file', image);
-      await axios.post('/api/upload-image', formData);
+      await api.uploadImage(formData)
     } else {
       newData = { ...data, order };
     }
-    await axios.post('/api/movie/add', newData);
-    const allMovies = await axios.get('/api/movies?page=1&limit=2');
+    await api.addMovie(newData);
+    const allMovies = await api.getMovies({page:1,limit:10});
     dispatch({ type: 'GET_MOVIES', payload: allMovies.data, page: 1 });
     history.push('/');
   } catch (err) {

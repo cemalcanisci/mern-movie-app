@@ -69,6 +69,7 @@ router.put('/order', (req, res) => {
     movies.forEach(async (q) => {
       await MovieModel.updateOne({ _id: q._id }, { $set: { order: q.order } });
     });
+    res.status(200).json({ update: true });
   } catch (error) {
     res.sendStatus(500);
   }

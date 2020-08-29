@@ -30,7 +30,6 @@ class Movies extends Component {
 
   render() {
     const { categoriesDatas, moviesDatas, location } = this.props;
-    console.log(this.props);
     const { search } = location;
     const { categories } = categoriesDatas;
     const {

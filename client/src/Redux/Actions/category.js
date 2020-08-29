@@ -1,8 +1,8 @@
-import axios from 'axios';
+import api from '../../Api';
 
 export const getCategories = () => async (dispatch) => {
   try {
-    const categories = await axios.get('/api/category');
+    const categories = await api.getCategories();
     dispatch({ type: 'GET_CATEGORIES', payload: categories });
   } catch (error) {
     dispatch({ type: 'GET_CATEGORY_ERRORS', payload: error });
@@ -15,7 +15,7 @@ export const set = (values, removedFields) => async () => {
       removed: [...removedFields],
       added: [...values.filter((q) => !q._id)],
     };
-    await axios.post('/api/category/set', data);
+    await api.setCategories(data);
   } catch (error) {
 
   }

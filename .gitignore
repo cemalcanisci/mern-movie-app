@@ -2,7 +2,10 @@
 
 # dependencies
 /client/node_modules
+/client/package-lock.json
 /server/node_modules
+/server/package-lock.json
+/server/.env
 /client/public/assets
 /.pnp
 .pnp.js
@@ -24,4 +27,3 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-.env

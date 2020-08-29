@@ -1,13 +1,13 @@
-import axios from 'axios';
+import api from '../../Api';
 
 export const updateMovie = (id, watched, query, querySearch, type) => (dispatch) => {
   try {
-    axios.put(`/api/movie/change-status/${id}`, { watched })
+    api.changeMovieStatus(id,watched)
       .then(async (res) => {
         dispatch({ type: 'UPDATE_STATUS', payload: res.data._id });
-        const movies = await axios.get(`/api/movies?page=${query.page}&limit=${query.limit}`);
+        const movies = await api.getMovies(query);
         if (type === 'search') {
-          const searchedMovies = await axios.get(`/api/movies/search?key=${querySearch.value}&page=${querySearch.page}&limit=${querySearch.limit}`);
+          const searchedMovies = await api.getSearchedMovies(querySearch);
           dispatch({
             type: 'SEARCHED_MOVIES', payload: searchedMovies.data, value: querySearch.value, page: querySearch.page, limit: querySearch.limit,
           });
@@ -23,7 +23,7 @@ export const updateOrder = (data) => async () => {
   orderedData.forEach((q, key) => {
     q.order = key;
   });
-  axios.put('/api/movies/order', orderedData);
+  api.updateMoviesOrder(orderedData);
 };
 export const update = (data, image, history) => async (dispatch) => {
   try {
@@ -33,14 +33,14 @@ export const update = (data, image, history) => async (dispatch) => {
 
       const formData = new FormData();
       formData.append('file', image);
-      await axios.post('/api/upload-image', formData);
+      await api.uploadImage(formData);
     } else {
       newData = { ...data };
     }
-    axios.put(`/api/movie/update/${newData._id}`, { newData });
-    const allMovies = await axios.get('/api/movies?page=1&limit=2');
+    api.updateMovie(newData._id,newData);
+    const allMovies = await api.getMovies({page:1,limit:10});
     dispatch({ type: 'GET_MOVIES', payload: allMovies.data, page: 1 });
-    const movie = await axios.get(`/api/movie/${newData._id}`);
+    const movie = await api.getMovie(newData._id);
     dispatch({ type: 'GET_MOVIE', payload: movie.data });
     history.push('/');
   } catch (err) {

@@ -23,7 +23,7 @@ export default class Croppie extends Component {
 
     onSelectFile = (e) => {
       if (e.target.files && e.target.files.length > 0) {
-        this.setState({ fileName: e.target.files[0].name });
+        this.setState({ fileName: e.target.files[0].name.replace(/\s/g,'') });
         const reader = new FileReader();
         reader.addEventListener('load', () => this.setState({ src: reader.result, show: true }));
         reader.readAsDataURL(e.target.files[0]);

@@ -17,6 +17,7 @@
     "react/prefer-stateless-function": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/prop-types": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "linebreak-style": 0
   }
 }

@@ -8,7 +8,7 @@ export default function Null(props) {
       <span className="mt-3 p-4 bg-grad rounded-pill">
         {text}
       </span>
-      <img className="null-image" alt="null" src="null.png" />
+      <img className="null-image" alt="null" src="/null.png" />
     </div>
   );
 }
