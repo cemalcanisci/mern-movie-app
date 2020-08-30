@@ -18,13 +18,7 @@ export const updateMovie = (id, watched, query, querySearch, type) => (dispatch)
     dispatch({ type: 'GET_ERRORS', payload: err });
   }
 };
-export const updateOrder = (data) => async () => {
-  const orderedData = [...data];
-  orderedData.forEach((q, key) => {
-    q.order = key;
-  });
-  api.updateMoviesOrder(orderedData);
-};
+
 export const update = (data, image, history) => async (dispatch) => {
   try {
     let newData;

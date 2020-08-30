@@ -21,6 +21,7 @@ class AddEdit extends Component {
       isCroppedImage: false,
       isFirstLoad: true,
       path: '/ekle',
+      movieNotFound:'',
       movie: {
         addedBy: '',
         category: '',
@@ -36,14 +37,18 @@ class AddEdit extends Component {
   }
 
   componentDidMount() {
-    const { match, get, getCategory } = this.props;
-    const { path, params } = match;
+    const { match,  getCategory } = this.props;
+    const {  params } = match;
     const { movieId } = params;
     getCategory();
     if(movieId){
       api.getMovie(movieId).then(res=>{
         this.setState({
           movie:res.data
+        })
+      }).catch(err=>{
+        this.setState({
+          movieNotFound:'Böyle bir film bulunamadı :)'
         })
       })
     }
@@ -105,6 +110,12 @@ class AddEdit extends Component {
     });
     if (!errors.length) {
       this.submit();
+    }else{
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      })
     }
   }
 
@@ -125,7 +136,7 @@ class AddEdit extends Component {
   }
 
   render() {
-    const { movie, errors, isCroppedImage } = this.state;
+    const { movie, errors, isCroppedImage,movieNotFound } = this.state;
     const { movieDetail, match, categoriesDatas } = this.props;
     const { path } = match;
     const edit = path === '/duzenle/:movieId';
@@ -226,11 +237,12 @@ class AddEdit extends Component {
 
         </Row>
 
-        <Button onClick={this.check} variant="outline-primary mt-3" size="lg">Kaydet</Button>
+        <Button onClick={this.check} variant="outline-dark mt-3" size="lg">Kaydet</Button>
       </Container>
     );
     const hasError = !error ? data : <Null text={error} />;
-    const hasCategories = categories.length ? hasError : <Null text="Lütfen önce kategori ekleyiniz.." />;
+    const hasMovieFind = !movieNotFound ? hasError : <Null text={movieNotFound} />
+    const hasCategories = categories.length ? hasMovieFind : <Null text="Lütfen önce kategori ekleyiniz.." />;
     return (
       <div>
         {error ? <Null text={error} /> : hasCategories}

@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const path = require('path');
+const history = require('connect-history-api-fallback');
 require('dotenv').config();
 
 const app = express();
@@ -11,14 +13,18 @@ const apiRouter = require('./Routers/api');
 const categoryRouter = require('./Routers/category');
 
 app.use(bodyParser.json());
-app.use(express.static('public'));
+const staticFileMiddleware = express.static(path.join(`${__dirname}/public`));
+app.use(staticFileMiddleware);
+app.use(history({
+  disableDotRule: true,
+  verbose: true,
+}));
+app.use(staticFileMiddleware);
 
 app.use('/api/movies', moviesRouter);
 app.use('/api/movie', movieRouter);
 app.use('/api', apiRouter);
 app.use('/api/category', categoryRouter);
-
-// const PORT = process.env.PORT || 3000;
 
 mongoose.connect(process.env.DB_HOST,
   { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })

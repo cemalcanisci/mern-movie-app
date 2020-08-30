@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import api from '../Api';
 import {
   Row, Col, Button,
 } from 'react-bootstrap';
+import { confirmAlert } from 'react-confirm-alert';
+import { ToastContainer, toast } from 'react-toastify';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-import { getCategories, set } from '../Redux/Actions/category';
+import { getCategories } from '../Redux/Actions/category';
 
 class Categories extends Component {
   constructor(props) {
@@ -49,16 +52,54 @@ class Categories extends Component {
       this.setState({
         error: '',
       });
-      this.sendCategories(categories, removedCategories);
+      this.check(categories, removedCategories);
     }
   }
-
+  callToast = (type,cemoji,text)=>{
+    return (() => toast[type](`${cemoji} ${text}`, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      }))();
+  }
+  check = (categories,removedCategories) => {
+    confirmAlert({
+      title: 'Emin misin?',
+      message: `Yapılan değişiklikleri kaydetmek istediğinize emin misiniz?
+        Önemli not :  Sildiğiniz kategoriye bağlı filmlerde silinecektir.
+        Lütfen kategori silme işlemini dikkatli yapınız !`,
+      buttons: [
+        {
+          label: 'Evet',
+          onClick: () => this.sendCategories(categories,removedCategories)
+        },
+        {
+          label: 'Hayır',
+          onClick: () => this.callToast('error','😑','işleminiz iptal edildi')
+        }
+      ],
+      closeOnEscape: true,
+      closeOnClickOutside: true,
+    });
+  }
   sendCategories = (categories, removedCategories) => {
-    const { send } = this.props;
     this.setState({
       isEdit: false,
     });
-    send(categories, removedCategories);
+    const data = {
+      updated: [...categories.filter((q) => q._id && q.modified)],
+      removed: [...removedCategories],
+      added: [...categories.filter((q) => !q._id)],
+    };
+    api.setCategories(data).then(cb=>{
+      this.callToast('info','😎','İşleminiz başarıyla gerçekleştirildi!')
+    }).catch(err=>{
+      this.callToast('err','😓','Bir hata oluştu..')
+    })
   }
 
   addNewCategory = () => {
@@ -127,6 +168,8 @@ class Categories extends Component {
           </Row>
         ) : ''}
         <Row className="text-center text-white w-100 m-0">
+         <ToastContainer />
+
           {categories.length ? categories.map((category, index) => (
             <Col key={index} xs={12} md={4} className={`${index % 2 === 0 ? ' categories-first' : 'categories-second'} py-3`}>
               {isEdit ? (
@@ -157,6 +200,5 @@ class Categories extends Component {
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = {
   get: getCategories,
-  send: set,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Categories);
