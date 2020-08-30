@@ -178,7 +178,7 @@ class AddEdit extends Component {
             </InputGroup>
           </Col>
         </Row>
-        <Row>
+        <Row className="mb-3">
           <Col sm={12} md={6}>
             <InputGroup size="sm" className="mb-3">
               <InputGroup.Prepend>
@@ -237,7 +237,7 @@ class AddEdit extends Component {
 
         </Row>
 
-        <Button onClick={this.check} variant="outline-dark mt-3" size="lg">Kaydet</Button>
+        <Button onClick={this.check} variant="outline-dark mb-5" size="lg">Kaydet</Button>
       </Container>
     );
     const hasError = !error ? data : <Null text={error} />;

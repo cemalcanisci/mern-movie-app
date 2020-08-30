@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { NavLink,  useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
   Navbar, Nav, InputGroup, FormControl, Button,
