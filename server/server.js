@@ -11,20 +11,22 @@ const apiRouter = require('./Routers/api');
 const categoryRouter = require('./Routers/category');
 
 app.use(bodyParser.json());
+app.use(express.static('public'));
 
 app.use('/api/movies', moviesRouter);
 app.use('/api/movie', movieRouter);
 app.use('/api', apiRouter);
 app.use('/api/category', categoryRouter);
-const PORT = process.env.DB_PORT;
+
+// const PORT = process.env.PORT || 3000;
 
 mongoose.connect(process.env.DB_HOST,
   { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
   .then((res) => console.log('Mongoose connect successfully'))
   .catch((err) => console.log(err));
 
-app.listen(PORT, () => {
-  console.log(`App listening on ${PORT} : PORT`);
+app.listen(process.env.PORT || 5000, () => {
+  console.log('App listening on 5000 : PORT');
 });
 
 process.on('SIGINT', () => {

@@ -11,7 +11,7 @@ router.post('/upload-image', (req, res) => {
   }
   const image = req.files.file;
 
-  image.mv(`${__dirname}/../../client/public/assets/${image.name}`, (err) => {
+  image.mv(`${__dirname}${process.env.FILE_PATH}${image.name}`, (err) => {
     if (err) {
       res.status(500).send(err);
     }

@@ -2,9 +2,7 @@ import axios from 'axios';
 
 class Api {
   constructor() {
-    this.api = axios.create({
-      baseUrl: 'http://localhost:3000'
-    });
+    this.api = axios.create({});
   }
 
   uploadImage(data){

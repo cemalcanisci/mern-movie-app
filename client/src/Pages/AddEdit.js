@@ -47,7 +47,7 @@ class AddEdit extends Component {
         })
       })
     }
-
+  }
 
     changeThis = (e) => {
       let { value } = e.target;
