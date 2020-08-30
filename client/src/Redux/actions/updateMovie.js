@@ -32,7 +32,7 @@ export const update = (data, image, history) => async (dispatch) => {
       newData = { ...data };
     }
     api.updateMovie(newData._id,newData);
-    const allMovies = await api.getMovies({page:1,limit:10});
+    const allMovies = await api.getMovies({page:1,limit:15});
     dispatch({ type: 'GET_MOVIES', payload: allMovies.data, page: 1 });
     const movie = await api.getMovie(newData._id);
     dispatch({ type: 'GET_MOVIE', payload: movie.data });

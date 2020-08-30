@@ -15,7 +15,7 @@ function Header({ props, get }) {
     const query = {
       value,
       page: 1,
-      limit: 10,
+      limit: 15,
     };
     get(query);
     history.push('/?search');

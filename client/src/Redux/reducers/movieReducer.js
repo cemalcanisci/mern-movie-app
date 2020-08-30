@@ -4,10 +4,10 @@ const initialState = {
   searchTotal: 0,
   movieErrors: '',
   page: 1,
-  limit: 10,
+  limit: 15,
   searchedMovies: [],
   searchedPage: 1,
-  searchedLimit: 10,
+  searchedLimit: 15,
   searchedValue: '',
   searchedTotal: 0,
 };

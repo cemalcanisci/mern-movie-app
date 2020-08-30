@@ -15,7 +15,7 @@ const addMovie = (data, image, history) => async (dispatch) => {
       newData = { ...data, order };
     }
     await api.addMovie(newData);
-    const allMovies = await api.getMovies({page:1,limit:10});
+    const allMovies = await api.getMovies({page:1,limit:15});
     dispatch({ type: 'GET_MOVIES', payload: allMovies.data, page: 1 });
     history.push('/');
   } catch (err) {
