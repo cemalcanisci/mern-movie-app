@@ -14,17 +14,17 @@ const categoryRouter = require('./Routers/category');
 
 app.use(bodyParser.json());
 const staticFileMiddleware = express.static(path.join(`${__dirname}/public`));
-app.use(staticFileMiddleware);
-app.use(history({
-  disableDotRule: true,
-  verbose: true,
-}));
-app.use(staticFileMiddleware);
 
 app.use('/api/movies', moviesRouter);
 app.use('/api/movie', movieRouter);
 app.use('/api', apiRouter);
 app.use('/api/category', categoryRouter);
+
+app.use(history({
+  verbose: true,
+}));
+
+app.use(staticFileMiddleware);
 
 mongoose.connect(process.env.DB_HOST,
   { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })

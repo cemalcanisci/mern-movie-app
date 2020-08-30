@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink,  useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
   Navbar, Nav, InputGroup, FormControl, Button,
@@ -9,6 +9,8 @@ import { getSearchedMovies } from '../Redux/Actions/getMovies';
 function Header({ props, get }) {
   const searchInput = useRef(null);
   const history = useHistory();
+  const { location } = history;
+  const { pathname } = location;
   const submitSearch = (value) => {
     const query = {
       value,
@@ -37,25 +39,25 @@ function Header({ props, get }) {
     };
   });
   return (
-    <Navbar bg="dark" expand="lg" className="text-center">
+    <Navbar  bg="dark" expand="lg" className="text-center">
       <Navbar.Brand className="text-white" to="/">
         MERN Movie App
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="mern-movie-app-navbar" />
       <Navbar.Collapse id="mern-movie-app-navbar">
-        <Nav className="mr-auto header">
-          <NavLink className="text-white text-nowrap" to="/">
+        <Nav activeKey={pathname} className="mr-auto header">
+          <Nav.Link  className="text-white text-nowrap" href="/">
             Film Listesi
-          </NavLink>
-          <NavLink className="text-white text-nowrap" to="/ekle">
+          </Nav.Link>
+          <Nav.Link  className="text-white text-nowrap" href="/ekle">
             Yeni Film
-          </NavLink>
-          <NavLink className="text-white text-nowrap" to="/kategori">
+          </Nav.Link>
+          <Nav.Link  className="text-white text-nowrap" href="/kategori">
             Kategoriler
-          </NavLink>
-          <NavLink className="text-white text-nowrap" to="/siralama">
+          </Nav.Link>
+          <Nav.Link  className="text-white text-nowrap" href="/siralama">
             Sıralama
-          </NavLink>
+          </Nav.Link>
         </Nav>
         <InputGroup className="my-3 w-100">
           <FormControl
