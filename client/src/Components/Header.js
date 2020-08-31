@@ -39,23 +39,23 @@ function Header({ props, get }) {
     };
   });
   return (
-    <Navbar  bg="dark" expand="lg" className="text-center">
+    <Navbar bg="dark" expand="lg" className="text-center">
       <Navbar.Brand className="text-white" to="/">
         MERN Movie App
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="mern-movie-app-navbar" />
       <Navbar.Collapse id="mern-movie-app-navbar">
         <Nav activeKey={pathname} className="mr-auto header">
-          <Nav.Link  className="text-white text-nowrap" href="/">
+          <Nav.Link className="text-white text-nowrap" href="/">
             Film Listesi
           </Nav.Link>
-          <Nav.Link  className="text-white text-nowrap" href="/ekle">
+          <Nav.Link className="text-white text-nowrap" href="/ekle">
             Yeni Film
           </Nav.Link>
-          <Nav.Link  className="text-white text-nowrap" href="/kategori">
+          <Nav.Link className="text-white text-nowrap" href="/kategori">
             Kategoriler
           </Nav.Link>
-          <Nav.Link  className="text-white text-nowrap" href="/siralama">
+          <Nav.Link className="text-white text-nowrap" href="/siralama">
             Sıralama
           </Nav.Link>
         </Nav>

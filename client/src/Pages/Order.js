@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import { connect } from 'react-redux';
-import { Card } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 import { confirmAlert } from 'react-confirm-alert';
 import { ToastContainer, toast } from 'react-toastify';
 import Null from './Null';
-
-import { Button } from 'react-bootstrap';
 
 import { getMoviesForOrder } from '../Redux/Actions/getMovies';
 import api from '../Api';
@@ -43,48 +41,47 @@ class Order extends Component {
       movies: newArr,
     });
   };
-  callToast = (type,cemoji,text)=>{
-    return (() => toast[type](`${cemoji} ${text}`, {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      }))();
-  }
 
-  check = ()=>{
+  callToast = (type, cemoji, text) => (() => toast[type](`${cemoji} ${text}`, {
+    position: 'top-right',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  }))()
+
+  check = () => {
     confirmAlert({
       title: 'Emin misin?',
       message: 'Film sıralamasını değiştirmek istediğinize emin misiniz?',
       buttons: [
         {
           label: 'Evet',
-          onClick: () => this.submit()
+          onClick: () => this.submit(),
         },
         {
           label: 'Hayır',
-          onClick: () => this.callToast('error','😑','işleminiz iptal edildi')
-        }
+          onClick: () => this.callToast('error', '😑', 'işleminiz iptal edildi'),
+        },
       ],
       closeOnEscape: true,
       closeOnClickOutside: true,
     });
   }
 
-  submit = ()=>{
-    const {movies} = this.state;
+  submit = () => {
+    const { movies } = this.state;
     const orderedData = [...movies];
     orderedData.forEach((q, key) => {
       q.order = key;
     });
-    api.updateMoviesOrder(orderedData).then(cb=>{
-      this.callToast('info','😎','İşleminiz başarıyla gerçekleştirildi!');
-    }).catch(err=>{
-      this.callToast('err','😓','Bir hata oluştu..')
-    })
+    api.updateMoviesOrder(orderedData).then((cb) => {
+      this.callToast('info', '😎', 'İşleminiz başarıyla gerçekleştirildi!');
+    }).catch((err) => {
+      this.callToast('err', '😓', 'Bir hata oluştu..');
+    });
   }
 
   render() {

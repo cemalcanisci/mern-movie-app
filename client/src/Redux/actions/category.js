@@ -8,4 +8,3 @@ export const getCategories = () => async (dispatch) => {
     dispatch({ type: 'GET_CATEGORY_ERRORS', payload: error });
   }
 };
-

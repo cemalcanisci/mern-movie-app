@@ -2,7 +2,7 @@ import api from '../../Api';
 
 export const updateMovie = (id, watched, query, querySearch, type) => (dispatch) => {
   try {
-    api.changeMovieStatus(id,watched)
+    api.changeMovieStatus(id, watched)
       .then(async (res) => {
         dispatch({ type: 'UPDATE_STATUS', payload: res.data._id });
         const movies = await api.getMovies(query);
@@ -31,8 +31,8 @@ export const update = (data, image, history) => async (dispatch) => {
     } else {
       newData = { ...data };
     }
-    api.updateMovie(newData._id,newData);
-    const allMovies = await api.getMovies({page:1,limit:15});
+    api.updateMovie(newData._id, newData);
+    const allMovies = await api.getMovies({ page: 1, limit: 15 });
     dispatch({ type: 'GET_MOVIES', payload: allMovies.data, page: 1 });
     const movie = await api.getMovie(newData._id);
     dispatch({ type: 'GET_MOVIE', payload: movie.data });

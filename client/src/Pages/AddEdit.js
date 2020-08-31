@@ -7,7 +7,7 @@ import {
 import Editor from '../Components/Editor';
 import Croppie from '../Components/Croppie';
 import Null from './Null';
-import api from '../Api'
+import api from '../Api';
 import { getMovie } from '../Redux/Actions/getMovies';
 import { getCategories } from '../Redux/Actions/category';
 import { update } from '../Redux/Actions/updateMovie';
@@ -19,9 +19,7 @@ class AddEdit extends Component {
     this.state = {
       file: undefined,
       isCroppedImage: false,
-      isFirstLoad: true,
-      path: '/ekle',
-      movieNotFound:'',
+      movieNotFound: '',
       movie: {
         addedBy: '',
         category: '',
@@ -37,20 +35,20 @@ class AddEdit extends Component {
   }
 
   componentDidMount() {
-    const { match,  getCategory } = this.props;
-    const {  params } = match;
+    const { match, getCategory } = this.props;
+    const { params } = match;
     const { movieId } = params;
     getCategory();
-    if(movieId){
-      api.getMovie(movieId).then(res=>{
+    if (movieId) {
+      api.getMovie(movieId).then((res) => {
         this.setState({
-          movie:res.data
-        })
-      }).catch(err=>{
+          movie: res.data,
+        });
+      }).catch((err) => {
         this.setState({
-          movieNotFound:'Böyle bir film bulunamadı :)'
-        })
-      })
+          movieNotFound: 'Böyle bir film bulunamadı :)',
+        });
+      });
     }
   }
 
@@ -110,12 +108,12 @@ class AddEdit extends Component {
     });
     if (!errors.length) {
       this.submit();
-    }else{
+    } else {
       window.scrollTo({
         top: 0,
         left: 0,
-        behavior: 'smooth'
-      })
+        behavior: 'smooth',
+      });
     }
   }
 
@@ -136,7 +134,9 @@ class AddEdit extends Component {
   }
 
   render() {
-    const { movie, errors, isCroppedImage,movieNotFound } = this.state;
+    const {
+      movie, errors, isCroppedImage, movieNotFound,
+    } = this.state;
     const { movieDetail, match, categoriesDatas } = this.props;
     const { path } = match;
     const edit = path === '/duzenle/:movieId';
@@ -241,7 +241,7 @@ class AddEdit extends Component {
       </Container>
     );
     const hasError = !error ? data : <Null text={error} />;
-    const hasMovieFind = !movieNotFound ? hasError : <Null text={movieNotFound} />
+    const hasMovieFind = !movieNotFound ? hasError : <Null text={movieNotFound} />;
     const hasCategories = categories.length ? hasMovieFind : <Null text="Lütfen önce kategori ekleyiniz.." />;
     return (
       <div>
