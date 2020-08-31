@@ -71,17 +71,15 @@ nav {
 }
 
 ul.no-dot {
-  @media (min-width: 762px) {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
+  
   li {
     list-style: none;
     background: #efefef;
-    @media (min-width: 762px) {
-      width: 50%;
-    }
+    width: 60%;
+    
   }
 }
 li.active-sort {
